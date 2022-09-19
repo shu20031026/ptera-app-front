@@ -1,2 +1,2 @@
-import { Game } from "@/components/pages/Game";
+import { Game } from "@/views/components/pages/Game";
 export default Game;

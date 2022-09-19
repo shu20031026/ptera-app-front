@@ -1,2 +1,2 @@
-import { Ranking } from "@/components/pages/Ranking";
+import { Ranking } from "@/views/components/pages/Ranking";
 export default Ranking;
