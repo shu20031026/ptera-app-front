@@ -2,7 +2,6 @@ import type { DocumentData } from '@firebase/firestore'
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import { ranking } from './style'
-// rankingページ
 import { fetchData } from '@/utils/firestore'
 
 export const Ranking: NextPage = () => {
