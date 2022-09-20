@@ -1,14 +1,15 @@
 import type { NextPage } from "next";
 import { game } from "./style";
-import { Canvas } from "./canvas";
+import p5 from "p5";
+import SketchComponent from "./Sketch";
 
 // gameページ
 export const Game: NextPage = () => {
   return (
-    <div css={game}>
+    <div css={game} id="canvas-parent">
       <p>game</p>
-      <Canvas></Canvas>
       <p>test</p>
+      <SketchComponent/>
     </div>
   );
 };
