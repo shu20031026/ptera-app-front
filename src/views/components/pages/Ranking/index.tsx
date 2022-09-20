@@ -1,20 +1,9 @@
-import { collection, getDocs } from '@firebase/firestore'
 import type { DocumentData } from '@firebase/firestore'
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import { ranking } from './style'
 // rankingページ
-import { db } from '@/constant/firebase'
-
-const fetchData = async () => {
-  const querySnapshot = await getDocs(collection(db, 'koji-ranjer'))
-  const result: DocumentData[] = []
-  querySnapshot.forEach((doc) => {
-    console.log(doc.id, ' => ', doc.data())
-    result.push(doc.data())
-  })
-  return result
-}
+import { fetchData } from '@/utils/firestore'
 
 export const Ranking: NextPage = () => {
   const [result, setResult] = useState<DocumentData[]>([])
