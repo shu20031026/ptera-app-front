@@ -4,7 +4,7 @@ import { game } from "./style";
 export const Game: NextPage = () => {
   return (
     <div css={game}>
-      <p>game</p>
+      
     </div>
   );
 };
