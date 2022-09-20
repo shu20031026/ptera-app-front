@@ -1,2 +1,2 @@
-import { Home } from "@/views/components/pages/Home";
-export default Home;
+import { Home } from '@/views/components/pages/Home'
+export default Home

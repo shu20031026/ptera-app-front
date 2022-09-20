@@ -12,6 +12,6 @@ export const userItem = css`
 `
 
 export const pictureSize = css`
-  width: 200px
-  height: 300px
+  width: 200px;
+  height: 300px;
 `
