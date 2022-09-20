@@ -1,7 +1,7 @@
 import type { DocumentData } from '@firebase/firestore'
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
-import { ranking } from './style'
+import { ranking, rankingItem, userItem } from './style'
 import { fetchData } from '@/utils/firestore'
 
 export const Ranking: NextPage = () => {
@@ -17,10 +17,14 @@ export const Ranking: NextPage = () => {
 
   return (
     <div css={ranking}>
-      <p>ranking</p>
       <ul>
         {result.map((doc, i) => (
-          <li key={i}>{doc.unit}</li>
+          <div key={i} css={rankingItem}>
+            <img src='https://chie-pctr.c.yimg.jp/dk/iwiz-chie/que-14202085434?w=200&h=200&up=0' />
+            {i + 1}位☆<div css={userItem}>名前：{doc.name}</div>
+            <div css={userItem}>落とした教科数：{doc.droppedUnit}</div>
+            <div css={userItem}>落とした教科：{doc.unit}</div>
+          </div>
         ))}
       </ul>
     </div>
