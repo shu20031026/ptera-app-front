@@ -10,11 +10,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (admin.apps.length === 0) {
-    admin.initializeApp({
-        credential: cert(serviceAccount),
-    });
-  }
   
   const db = getFirestore();
   
