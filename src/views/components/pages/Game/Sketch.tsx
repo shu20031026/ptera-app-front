@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import p5Types from 'p5'
+import { getWindowSize } from './GetWindowSize';
 
 
 const Sketch = dynamic(import('react-p5'), {
@@ -13,8 +13,7 @@ const SketchComponent = () => {
     p5.noStroke();
   };
 
-  const width = document.body.clientWidth;
-  const height = document.body.clientHeight;
+  const {width, height} = getWindowSize();
   let ballRadius = 10;
   let x = width / 2;
   let y = height - 30;

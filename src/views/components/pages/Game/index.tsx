@@ -6,8 +6,6 @@ import SketchComponent from "./Sketch";
 export const Game: NextPage = () => {
   return (
     <div css={game} id="canvas-parent">
-      <p>game</p>
-      <p>test</p>
       <SketchComponent/>
     </div>
   );
