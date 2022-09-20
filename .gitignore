@@ -34,3 +34,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+ptera-cup-firebase-adminsdk-nscv8-b5fffc69d3.json
+.env
