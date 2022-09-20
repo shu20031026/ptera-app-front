@@ -28,9 +28,15 @@ const SketchComponent = () => {
     p5.arc(dx, dy, ballRadius, ballRadius, 0, Math.PI * 2)
   }
 
+  const drawPaddle = (p5: any) => {
+    p5.rect(paddleX, p5.height - paddleHeight, paddleWidth, paddleHeight)
+    p5.fill('#0095DD')
+  }
+
   const draw = (p5: any) => {
     p5.clear()
     drawBall(p5, x, y, ballRadius)
+    drawPaddle(p5)
     if (x + dx > width - ballRadius || x + dx < ballRadius) {
       dx = -dx
     }
