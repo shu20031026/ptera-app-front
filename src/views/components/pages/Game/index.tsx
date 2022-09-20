@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import { game } from "./style";
-import p5 from "p5";
 import SketchComponent from "./Sketch";
 
 // gameページ
