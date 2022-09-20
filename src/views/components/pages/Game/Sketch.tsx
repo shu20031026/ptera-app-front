@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic'
+import { useRef } from 'react'
 import { getWindowSize } from './GetWindowSize'
 
 const Sketch = dynamic(import('react-p5'), {
@@ -13,39 +14,46 @@ const SketchComponent = () => {
 
   const { width, height } = getWindowSize()
   let ballRadius = 10
-  let x = width / 2
-  let y = height - 30
+  const x = useRef(50)
+  const y = useRef(50)
   let dx = 2
   let dy = -2
   const paddleHeight = 10
   const paddleWidth = 75
-  let paddleX = (width - paddleWidth) / 2
+  const paddleX = useRef((width - paddleWidth) / 2)
   let lives = 3
 
-  const drawBall = (p5: any, dx: number, dy: number, b_ballRadius: number) => {
+  const drawBall = (p5: any, ball_x: number, ball_y: number, b_ballRadius: number) => {
+    console.log(ball_x, ball_y)
     p5.clear()
     p5.fill(255, 255, 255)
-    p5.arc(dx, dy, ballRadius, ballRadius, 0, Math.PI * 2)
+    p5.arc(ball_x, ball_y, ballRadius, ballRadius, 0, Math.PI * 2)
   }
 
   const drawPaddle = (p5: any) => {
-    p5.rect(paddleX, p5.height - paddleHeight, paddleWidth, paddleHeight)
+    p5.rect(paddleX.current, p5.height - paddleHeight, paddleWidth, paddleHeight)
     p5.fill('#0095DD')
   }
 
   const draw = (p5: any) => {
     p5.clear()
-    drawBall(p5, x, y, ballRadius)
+    drawBall(p5, x.current, y.current, ballRadius)
     drawPaddle(p5)
-    if (x + dx > width - ballRadius || x + dx < ballRadius) {
+    if (x.current + dx > width - ballRadius || x.current + dx < ballRadius) {
       dx = -dx
     }
-    if (y + dy > height - ballRadius || y + dy < ballRadius) {
+    if (y.current + dy > height - ballRadius || y.current + dy < ballRadius) {
       dy = -dy
     }
 
-    x += dx
-    y += dy
+    x.current += dx
+    y.current += dy
+
+    if (p5.keyIsDown(p5.LEFT_ARROW)) {
+      paddleX.current -= 7
+    } else if (p5.keyIsDown(p5.RIGHT_ARROW)) {
+      paddleX.current += 7
+    }
   }
 
   const windowResized = (p5: any) => {
