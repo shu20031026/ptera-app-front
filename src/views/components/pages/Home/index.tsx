@@ -1,5 +1,5 @@
-import type { NextPage } from "next";
-import { home } from "./style";
+import type { NextPage } from 'next'
+import { home } from './style'
 
 // homeページ
 export const Home: NextPage = () => {
@@ -7,5 +7,5 @@ export const Home: NextPage = () => {
     <div css={home}>
       <p>home</p>
     </div>
-  );
-};
+  )
+}
