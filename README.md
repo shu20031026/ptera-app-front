@@ -15,3 +15,8 @@ yarn install
 ```bash
 yarn dev
 ```
+
+# GitHub規約
+## ブランチ
+- フロントエンド：front/@@@@@@@@@@
+- バックエンド： back/@@@@@@@@@
