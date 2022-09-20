@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
-import { game } from './style'
 import SketchComponent from './Sketch'
+import { game } from './style'
 
 // gameページ
 export const Game: NextPage = () => {
