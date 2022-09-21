@@ -12,6 +12,7 @@ interface BricksArray {
 const Sketch = dynamic(import('react-p5'), {
   ssr: false,
 })
+
 const SketchComponent = () => {
   const setup = (p5: any, canvasParentRef: Element) => {
     p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef)
@@ -111,7 +112,7 @@ const SketchComponent = () => {
     }
   }
 
-  const gameOver = (p5: any) => {
+  const gameOver = () => {
     alert('GAME OVER')
     console.log(score)
     router.replace('/')
@@ -138,7 +139,7 @@ const SketchComponent = () => {
       } else {
         lives--
         if (lives === 0) {
-          gameOver(p5)
+          gameOver()
           p5.noLoop()
         }
       }
@@ -147,9 +148,13 @@ const SketchComponent = () => {
     y.current += dy
 
     if (p5.keyIsDown(p5.LEFT_ARROW)) {
-      paddleX.current -= 7
+      if (paddleX.current >= ballRadius) {
+        paddleX.current -= 7
+      }
     } else if (p5.keyIsDown(p5.RIGHT_ARROW)) {
-      paddleX.current += 7
+      if (paddleX.current <= width - ballRadius - paddleWidth) {
+        paddleX.current += 7
+      }
     }
   }
 
