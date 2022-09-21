@@ -4,9 +4,11 @@ import { useState } from 'react'
 import { useSetRecoilState } from 'recoil'
 import {
   addFormButton,
+  gameTitle,
   homeContainer,
   homeWrapper,
   inputItem,
+  nameInput,
   startButton,
   unitListContainer,
 } from './style'
@@ -40,10 +42,10 @@ export const Home: NextPage = () => {
   return (
     <div css={homeContainer}>
       <div css={homeWrapper}>
-        <p>ゲームタイトル</p>
+        <h1 css={gameTitle}>ゲームタイトル</h1>
         <div>
           <input
-            css={inputItem}
+            css={nameInput}
             onChange={(e) => setPlayer(e.target.value)}
             placeholder='名前を入力してください'
           />
