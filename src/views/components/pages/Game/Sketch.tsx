@@ -1,6 +1,11 @@
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 import { useRef } from 'react'
 import { getWindowSize } from './GetWindowSize'
+
+interface MutableRefObject<T> {
+  current: T
+}
 
 const Sketch = dynamic(import('react-p5'), {
   ssr: false,
@@ -12,6 +17,7 @@ const SketchComponent = () => {
     p5.noStroke()
   }
 
+  const router = useRouter()
   const { width, height } = getWindowSize()
   let ballRadius = 10
   const x = useRef(50)
@@ -34,6 +40,10 @@ const SketchComponent = () => {
     p5.rect(paddleX.current, p5.height - paddleHeight, paddleWidth, paddleHeight)
     p5.fill('#0095DD')
   }
+  const gameOver = (p5: any) => {
+    alert('GAME OVER')
+    router.replace('/')
+  }
 
   const draw = (p5: any) => {
     p5.clear()
@@ -41,9 +51,16 @@ const SketchComponent = () => {
     drawPaddle(p5)
     if (x.current + dx > width - ballRadius || x.current + dx < ballRadius) {
       dx = -dx
-    }
-    if (y.current + dy > height - ballRadius || y.current + dy < ballRadius) {
-      dy = -dy
+      if (y.current + dy < ballRadius) {
+        dy = -dy
+      }
+    } else if (y.current + dy > height - ballRadius) {
+      if (x.current > paddleX.current && x.current < paddleX.current + paddleWidth) {
+        dy = -dy
+      } else {
+        gameOver(p5)
+        p5.noLoop()
+      }
     }
 
     x.current += dx
