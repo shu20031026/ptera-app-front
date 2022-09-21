@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { createRef, RefObject, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useSetRecoilState } from 'recoil'
 import {
   addFormButton,
