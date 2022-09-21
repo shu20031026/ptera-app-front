@@ -7,10 +7,11 @@ import { userDataState } from '@/context/atoms'
 // gameページ
 export const Game: NextPage = () => {
   const userData = useRecoilValue(userDataState)
-  console.log(userData)
+  const userList = userData.unitList
+  console.log(userList)
   return (
     <div css={game} id='canvas-parent'>
-      <SketchComponent />
+      <SketchComponent {...userList} />
     </div>
   )
 }

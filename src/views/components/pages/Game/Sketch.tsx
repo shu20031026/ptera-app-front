@@ -2,6 +2,11 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { useRef } from 'react'
 import { getWindowSize } from './GetWindowSize'
+import { userDataState } from '@/context/atoms'
+
+type Props = {
+  unitList: string[]
+}
 
 interface BricksArray {
   x: number
@@ -13,14 +18,15 @@ const Sketch = dynamic(import('react-p5'), {
   ssr: false,
 })
 
-const SketchComponent = () => {
+const SketchComponent: any = (props: Props) => {
   const setup = (p5: any, canvasParentRef: Element) => {
     p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef)
     p5.colorMode(p5.HSB, p5.width, p5.height, 100)
     p5.noStroke()
   }
-
+  const testArr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11']
   const router = useRouter()
+  const units = Object.values(props)
   const { width, height } = getWindowSize()
   const ballRadius = 50
   const x = useRef(width - 100)
@@ -41,11 +47,10 @@ const SketchComponent = () => {
   const brickOffsetLeft = 30
   let text: BricksArray[][] = []
   let bricks: BricksArray[][] = []
+  const brickNum = useRef(0)
   for (let c = 0; c < brickColumnCount; c++) {
-    bricks[c] = []
     text[c] = []
     for (let r = 0; r < brickRowCount; r++) {
-      bricks[c][r] = { x: 0, y: 0, status: 1 }
       text[c][r] = { x: 0, y: 0, status: 1 }
     }
   }
@@ -57,25 +62,12 @@ const SketchComponent = () => {
   }
 
   const drawPaddle = (p5: any) => {
-    p5.rect(paddleX.current, p5.height - paddleHeight, paddleWidth, paddleHeight)
     p5.fill('#0095DD')
+    p5.rect(paddleX.current, p5.height - paddleHeight, paddleWidth, paddleHeight)
   }
 
-  const drawBricks = (p5: any) => {
-    for (let c = 0; c < brickColumnCount; c++) {
-      for (let r = 0; r < brickRowCount; r++) {
-        if (bricks[c][r].status === 1) {
-          const brickX = c * (brickWidth + brickPadding) + brickOffsetLeft
-          const brickY = r * (brickHeight + brickPadding) + brickOffsetTop
-          bricks[c][r].x = brickX
-          bricks[c][r].y = brickY
-          p5.rect(brickX, brickY, brickWidth, brickHeight)
-          p5.fill('#0095DD')
-        }
-      }
-    }
-  }
-  const drawText = (p5: any) => {
+  const drawUnit = (p5: any) => {
+    brickNum.current = 0
     for (let c = 0; c < brickColumnCount; c++) {
       for (let r = 0; r < brickRowCount; r++) {
         if (text[c][r].status === 1) {
@@ -83,31 +75,41 @@ const SketchComponent = () => {
           const brickY = r * (brickHeight + brickPadding) + brickOffsetTop
           text[c][r].x = brickX
           text[c][r].y = brickY
-          p5.text('test', brickX, brickY, brickWidth, brickHeight)
+          if (brickNum.current < units.length) {
+            p5.fill(255, 255, 255)
+            p5.rect(brickX, brickY, brickWidth, brickHeight)
+          }
           p5.fill(0, 0, 0)
+          p5.text(units[brickNum.current], brickX, brickY, brickWidth, brickHeight)
+          brickNum.current++
         }
       }
     }
   }
 
   const collisionDetection = () => {
+    brickNum.current = 0
     for (let c = 0; c < brickColumnCount; c++) {
       for (let r = 0; r < brickRowCount; r++) {
-        let b = bricks[c][r]
         let t = text[c][r]
-        if (b.status == 1) {
+        if (t.status == 1) {
           if (
-            x.current > b.x &&
-            x.current < b.x + brickWidth &&
-            y.current > b.y &&
-            y.current < b.y + brickHeight
+            x.current > t.x &&
+            x.current < t.x + brickWidth &&
+            y.current > t.y &&
+            y.current < t.y + brickHeight &&
+            brickNum.current < units.length
           ) {
             dy = -dy
-            b.status = 0
             t.status = 0
+            console.log(brickNum.current)
+            let deleteArr = units[brickNum.current]
+            let index = units.indexOf(deleteArr)
+            units.splice(index, 1)
             score++
           }
         }
+        brickNum.current++
       }
     }
   }
@@ -123,8 +125,7 @@ const SketchComponent = () => {
     drawBall(p5, x.current, y.current, ballRadius)
     drawPaddle(p5)
     collisionDetection()
-    drawBricks(p5)
-    drawText(p5)
+    drawUnit(p5)
     if (y.current < 10) {
       dy = -dy
     }
@@ -162,7 +163,7 @@ const SketchComponent = () => {
     p5.resizeCanvas(p5.windowWidth, p5.windowHeight)
   }
 
-  return <Sketch setup={setup} draw={draw} windowResized={windowResized} />
+  return <Sketch draw={draw} setup={setup} windowResized={windowResized} />
 }
 
 export default SketchComponent
