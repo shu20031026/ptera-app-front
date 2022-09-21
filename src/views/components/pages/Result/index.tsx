@@ -1,10 +1,18 @@
 import { NextPage } from 'next'
+import { useRouter } from 'next/router'
 import { useRecoilValue } from 'recoil'
 import { result } from './style'
 import { resultDataState } from '@/context/atoms'
 
 export const Result: NextPage = () => {
   const resultData = useRecoilValue(resultDataState)
+  const router = useRouter()
+
+  function addRanking() {
+    // firebaseにでーたをとばすしょり
+    router.replace('/ranking')
+  }
+
   return (
     <div css={result}>
       <div>result</div>
@@ -20,6 +28,8 @@ export const Result: NextPage = () => {
             )
           })}
         </p>
+        <p>{'ここにスコアが入ります'}</p>
+        <button onClick={() => addRanking()}>ランキングに登録する</button>
       </div>
     </div>
   )
