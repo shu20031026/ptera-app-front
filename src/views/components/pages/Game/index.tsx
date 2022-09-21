@@ -14,3 +14,4 @@ export const Game: NextPage = () => {
     </div>
   )
 }
+
