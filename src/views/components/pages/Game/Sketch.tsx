@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { useSetRecoilState } from 'recoil'
 import { getWindowSize } from './GetWindowSize'
 import { resultDataState } from '@/context/atoms'
@@ -57,12 +57,11 @@ const SketchComponent = () => {
   let text: BricksArray[][] = []
   let bricks: BricksArray[][] = []
   let mugiwaraImg = ''
-  let myFont;
-  //タイマーの処理
+  
   let time:number;
   const oneSec = 1000;
   let elapsedTime = 0;
-  let count = 0;
+  const count = useRef(0);
   
   for (let c = 0; c < brickColumnCount; c++) {
     bricks[c] = []
@@ -157,9 +156,16 @@ const SketchComponent = () => {
 
   const gameOver = () => {
     alert('留年!!!!!!!!')
-    console.log(score.current)
-    router.replace('/')
+    router.push('/')
   }
+
+  //タイマーの処理
+  useEffect(() => {
+    const id = setInterval(() => {
+      count.current += 1;
+    }, 1000);
+    return () => clearInterval(id);
+  }, [])
 
   const draw = (p5: any) => {
     p5.clear()
@@ -172,15 +178,7 @@ const SketchComponent = () => {
 
     p5.textSize(35);
     p5.fill('#d6d982')
-    p5.text(count + '秒経過',width/2.16, height/2.4);
-    const now = p5.millis();
-    elapsedTime = now - time;
-    if (elapsedTime >= oneSec) {
-      // 秒数を1つ大きくする
-      count++;
-      // 再びスタート
-      time = p5.millis();
-  }
+    p5.text(count.current + '秒経過',width/2.16, height/2.4);
     
     if (y.current < 10) {
       dy = -dy
@@ -197,8 +195,8 @@ const SketchComponent = () => {
         lives--
         dy = -dy
         if (lives === 0) {
-          gameOver()
           p5.noLoop()
+          gameOver()
         }
       }
     }
