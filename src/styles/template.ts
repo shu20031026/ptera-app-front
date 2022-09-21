@@ -1,7 +1,7 @@
 export const colors = {
   base: {
-    primary: '#da312c', // 赤
-    dark: '#5c0203', // 暗い赤
+    primary: '#a90710', // 赤
+    dark: '#5a0809', // 暗い赤
   },
   text: {
     primary: '#ffffff', // 白

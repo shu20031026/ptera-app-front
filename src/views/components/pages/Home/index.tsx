@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { createRef, RefObject, useRef, useState } from 'react'
 import { useSetRecoilState } from 'recoil'
 import {
   addFormButton,
@@ -11,6 +11,7 @@ import {
   inputItemNumber,
   inputItemWrapper,
   nameInput,
+  refFlag,
   startButton,
   unitListContainer,
 } from './style'
@@ -18,13 +19,15 @@ import { userDataState } from '@/context/atoms'
 
 // homeページ
 export const Home: NextPage = () => {
-  const [player, setPlayer] = useState<string>('')
+  const [player, setPlayer] = useState<string>('unknown')
   const [unitList, setUnitList] = useState<string[]>([''])
   const setUserData = useSetRecoilState(userDataState)
   const router = useRouter()
+  const a = useRef<HTMLDivElement>(null)
 
   function addUnit() {
     setUnitList((prev) => [...prev, ''])
+    a.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
   function editUnit(index: number, value: string) {
@@ -66,6 +69,9 @@ export const Home: NextPage = () => {
               </div>
             )
           })}
+          <div ref={a} css={refFlag}>
+            a
+          </div>
         </div>
         {unitList.length < 20 && (
           <button css={addFormButton} onClick={() => addUnit()}>
