@@ -8,6 +8,8 @@ import {
   homeContainer,
   homeWrapper,
   inputItem,
+  inputItemNumber,
+  inputItemWrapper,
   nameInput,
   startButton,
   unitListContainer,
@@ -41,8 +43,8 @@ export const Home: NextPage = () => {
 
   return (
     <div css={homeContainer}>
+      <h1 css={gameTitle}>ゲームタイトル</h1>
       <div css={homeWrapper}>
-        <h1 css={gameTitle}>ゲームタイトル</h1>
         <div>
           <input
             css={nameInput}
@@ -53,21 +55,23 @@ export const Home: NextPage = () => {
         <div css={unitListContainer}>
           {unitList.map((value, index) => {
             return (
-              <input
-                css={inputItem}
-                key={index}
-                onChange={(e) => editUnit(index, e.target.value)}
-                value={value}
-                placeholder='講義名を入力してください'
-              />
+              <div key={index} css={inputItemWrapper}>
+                <p css={inputItemNumber}>{index + 1}</p>
+                <input
+                  css={inputItem}
+                  onChange={(e) => editUnit(index, e.target.value)}
+                  value={value}
+                  placeholder='講義名を入力してください'
+                />
+              </div>
             )
           })}
-          {unitList.length < 20 && (
-            <button css={addFormButton} onClick={() => addUnit()}>
-              受ける講義を追加する
-            </button>
-          )}
         </div>
+        {unitList.length < 20 && (
+          <button css={addFormButton} onClick={() => addUnit()}>
+            受ける講義を追加する
+          </button>
+        )}
         <button
           css={startButton}
           onClick={() => {
