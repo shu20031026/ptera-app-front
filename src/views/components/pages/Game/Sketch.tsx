@@ -22,7 +22,7 @@ const SketchComponent = () => {
 
   const router = useRouter()
   const { width, height } = getWindowSize()
-  const ballRadius = 10
+  const ballRadius = 50
   const x = useRef(width - 100)
   const y = useRef(height - 30)
   let dx = 2
@@ -139,7 +139,7 @@ const SketchComponent = () => {
       } else {
         lives--
         if (lives === 0) {
-          gameOver()
+          //gameOver()
           p5.noLoop()
         }
       }
