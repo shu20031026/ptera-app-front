@@ -69,8 +69,6 @@ export const Home: NextPage = () => {
         <button
           css={startButton}
           onClick={() => {
-            console.log(player)
-            console.log(unitList)
             sendUserData()
           }}
         >
