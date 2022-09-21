@@ -24,9 +24,10 @@ const SketchComponent: any = (props: Props) => {
     p5.colorMode(p5.HSB, p5.width, p5.height, 100)
     p5.noStroke()
   }
-  const testArr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11']
   const router = useRouter()
+  //const units = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11']
   const units = Object.values(props)
+  let dropUnit: string[] = []
   const { width, height } = getWindowSize()
   const ballRadius = 50
   const x = useRef(width - 100)
@@ -105,6 +106,9 @@ const SketchComponent: any = (props: Props) => {
             console.log(brickNum.current)
             let deleteArr = units[brickNum.current]
             let index = units.indexOf(deleteArr)
+            dropUnit.push(deleteArr[0])
+            console.log(dropUnit)
+
             units.splice(index, 1)
             score++
           }
