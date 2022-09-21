@@ -265,6 +265,8 @@ export const rankPost = css`
 `
 
 export const buttonWrapper = css`
-  width: 100%;
-  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  width: 60%;
+  margin: 0 auto;
 `

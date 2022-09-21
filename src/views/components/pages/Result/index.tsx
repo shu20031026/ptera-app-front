@@ -24,6 +24,7 @@ import {
   userScore,
 } from './style'
 import { resultDataState, ResultType } from '@/context/atoms'
+import { putData } from '@/utils/firestore'
 
 export const Result: NextPage = () => {
   const resultData = useRecoilValue(resultDataState)
@@ -53,8 +54,9 @@ export const Result: NextPage = () => {
 
   const score = Math.floor(resultData.breakUnit.length * (1 / (resultData.time - 2.5)) * 1000)
 
-  function addRanking() {
+  async function addRanking() {
     // firebaseにでーたをとばすしょり
+    await putData({ name: resultData.userName, unit: resultData.breakUnit, score })
     router.push('/ranking')
   }
   //ダミーデータ
@@ -95,6 +97,11 @@ export const Result: NextPage = () => {
         <div css={buttonWrapper}>
           <button css={rankButton} onClick={() => addRanking()}>
             <div css={rankPost}>ランキングに登録する</div>
+          </button>
+          <button css={rankButton} onClick={() => addRanking()}>
+            <div css={rankPost} onClick={() => router.push('/')}>
+              リトライ
+            </div>
           </button>
         </div>
       </div>

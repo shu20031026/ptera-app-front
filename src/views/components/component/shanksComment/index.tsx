@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { shanksContainer } from './style'
+import { shanksBox, shanksContainer, shanksTalk } from './style'
 import { shanksWords } from '@/constant/shanksWords'
 import { shuffleArray } from '@/utils/randomArray'
 
@@ -18,7 +18,10 @@ export const ShanksComment = () => {
   }, [])
   return (
     <div css={shanksContainer}>
-      <p>{shanksComment}</p>
+      <div css={shanksBox}>
+        <p css={shanksTalk}>赤髪の男</p>
+        <p css={shanksTalk}>『{shanksComment}』</p>
+      </div>
     </div>
   )
 }
