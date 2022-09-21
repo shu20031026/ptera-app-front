@@ -119,7 +119,7 @@ const SketchComponent = () => {
           ) {
             dy = -dy
             b.status = 0
-            t.statお前は= 0
+            t.status= 0
             score.current++
           }
         }
