@@ -25,7 +25,7 @@ export const Result: NextPage = () => {
       <div>
         <p>{resultData.userName}</p>
         <p>{resultData.time}</p>
-        <p>
+        <div>
           {resultData.breakUnit.map((unit, index) => {
             return (
               <div key={index}>
@@ -33,7 +33,7 @@ export const Result: NextPage = () => {
               </div>
             )
           })}
-        </p>
+        </div>
         <p>{'ここにスコアを求める関数の結果が入ります'}</p>
         <button onClick={() => addRanking()}>ランキングに登録する</button>
       </div>

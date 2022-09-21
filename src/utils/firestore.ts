@@ -1,4 +1,5 @@
-import { addDoc, collection, getDocs } from 'firebase/firestore'
+import { addDoc, collection, getDocs, query } from 'firebase/firestore'
+import { orderBy } from 'firebase/firestore'
 import type { DocumentData } from 'firebase/firestore'
 import { db } from '@/constant/firebase'
 import { ResultType } from '@/constant/type'
@@ -6,7 +7,8 @@ import { ResultType } from '@/constant/type'
 const COLLECTION_NAME = 'koji-ranjer'
 
 export const fetchData = async () => {
-  const querySnapshot = await getDocs(collection(db, COLLECTION_NAME))
+  const sortDb = query(collection(db, COLLECTION_NAME), orderBy('score', 'desc'))
+  const querySnapshot = await getDocs(sortDb)
   const result: DocumentData[] = []
   querySnapshot.forEach((doc) => {
     console.log(doc.id, ' => ', doc.data())
