@@ -19,7 +19,7 @@ const SketchComponent: any = (props: UserDataType) => {
   const setup = (p5: any, canvasParentRef: Element) => {
     p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef)
     p5.colorMode(p5.HSB, p5.width, p5.height, 100)
-
+    console.log(units)
     time = p5.millis()
   }
 
@@ -58,11 +58,10 @@ const SketchComponent: any = (props: UserDataType) => {
   const brickPadding = 10
   const brickOffsetTop = 30
   const brickOffsetLeft = 30
-  let text: BricksArray[][] = []
+  let textBricks: BricksArray[][] = []
   const brickNum = useRef(0)
-  let bricks: BricksArray[][] = []
   let mugiwaraImg = ''
-  let myFont
+  //let myFont
   //タイマーの処理
   let time: number
   const oneSec = 1000
@@ -70,9 +69,9 @@ const SketchComponent: any = (props: UserDataType) => {
   let count = 0
 
   for (let c = 0; c < brickColumnCount; c++) {
-    text[c] = []
+    textBricks[c] = []
     for (let r = 0; r < brickRowCount; r++) {
-      text[c][r] = { x: 0, y: 0, status: 1 }
+      textBricks[c][r] = { x: 0, y: 0, status: 1 }
     }
   }
 
@@ -89,39 +88,22 @@ const SketchComponent: any = (props: UserDataType) => {
 
   const drawUnit = (p5: any) => {
     brickNum.current = 0
-    p5.rect(paddleX.current, p5.height - paddleHeight, paddleWidth, paddleHeight)
-    p5.fill('#f0f8ff')
-  }
-
-  const drawBricks = (p5: any) => {
     for (let c = 0; c < brickColumnCount; c++) {
       for (let r = 0; r < brickRowCount; r++) {
-        if (bricks[c][r].status === 1) {
+        if (textBricks[c][r].status === 1) {
           const brickX = c * (brickWidth + brickPadding) + brickOffsetLeft
           const brickY = r * (brickHeight + brickPadding) + brickOffsetTop
-          bricks[c][r].x = brickX
-          bricks[c][r].y = brickY
-          p5.rect(brickX, brickY, brickWidth, brickHeight)
-          p5.fill('#ffffff')
-        }
-      }
-    }
-  }
-
-  const drawText = (p5: any) => {
-    for (let c = 0; c < brickColumnCount; c++) {
-      for (let r = 0; r < brickRowCount; r++) {
-        if (text[c][r].status === 1) {
-          const brickX = c * (brickWidth + brickPadding) + brickOffsetLeft
-          const brickY = r * (brickHeight + brickPadding) + brickOffsetTop
-          text[c][r].x = brickX
-          text[c][r].y = brickY
+          textBricks[c][r].x = brickX
+          textBricks[c][r].y = brickY
           if (brickNum.current < units.length) {
             p5.fill(255, 255, 255)
             p5.rect(brickX, brickY, brickWidth, brickHeight)
+            p5.fill(0, 0, 0)
+            p5.text(units[brickNum.current], brickX, brickY, brickWidth, brickHeight)
+            p5.textSize(35)
+            p5.fill('#ff2828')
           }
-          p5.fill(0, 0, 0)
-          p5.text(units[brickNum.current], brickX, brickY, brickWidth, brickHeight)
+
           brickNum.current++
         }
       }
@@ -132,7 +114,7 @@ const SketchComponent: any = (props: UserDataType) => {
     brickNum.current = 0
     for (let c = 0; c < brickColumnCount; c++) {
       for (let r = 0; r < brickRowCount; r++) {
-        let t = text[c][r]
+        let t = textBricks[c][r]
         if (t.status == 1) {
           if (
             x.current > t.x &&
@@ -178,7 +160,7 @@ const SketchComponent: any = (props: UserDataType) => {
       time: 0,
     })
     alert('留年!!!!!!!!')
-    console.log(score.current)
+    //console.log(score.current)
     router.replace('/')
   }
 
@@ -187,11 +169,8 @@ const SketchComponent: any = (props: UserDataType) => {
     drawBall(p5, x.current, y.current, ballRadius)
     drawPaddle(p5)
     drawlives(p5)
-    collisionDetection()
     drawUnit(p5)
-    //drawBricks(p5)
-    //drawText(p5)
-
+    collisionDetection()
     p5.textSize(35)
     p5.fill('#d6d982')
     p5.text(count + '秒経過', width / 2.16, height / 2.4)
