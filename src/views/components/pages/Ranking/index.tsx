@@ -1,4 +1,4 @@
-import { DocumentData, query, orderBy } from '@firebase/firestore'
+import type { DocumentData } from '@firebase/firestore'
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import {
