@@ -1,41 +1,102 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useRecoilValue } from 'recoil'
-import { result } from './style'
+import {
+  dropSubUnit,
+  dropUnit,
+  dropUnitNum,
+  header,
+  headerSpan,
+  rankButton,
+  rankPost,
+  result,
+  span1,
+  span2,
+  span3,
+  span4,
+  span5,
+  span6,
+  span7,
+  user,
+  userInf,
+  userScore,
+} from './style'
 import { resultDataState, ResultType } from '@/context/atoms'
+import { putData } from '@/utils/firestore'
+import { time } from 'console'
+import { dropSubItem } from '../Ranking/style'
+import { userInfo } from 'os'
+import { UserInfo } from 'firebase-admin/lib/auth/user-record'
 
 export const Result: NextPage = () => {
   // const resultData = useRecoilValue(resultDataState)
   const router = useRouter()
+
+  const resultData: ResultType = {
+    userName: 'よーくん',
+    breakUnit: [
+      'a',
+      'b',
+      'c',
+      '情報ネットワーク',
+      '情報ネットワーク',
+      '情報ネットワーク',
+      '情報ネットワーク',
+      '情報ネットワーク',
+      '情報ネットワーク',
+      '情報ネットワーク',
+      '情報ネットワーク',
+      '情報ネットワーク',
+      '情報ネットワーク',
+      '情報ネットワーク',
+      '情報ネットワーク',
+    ],
+    time: 42.5,
+  }
+
+  const score = Math.floor(resultData.breakUnit.length * (1 / (resultData.time - 2.5)) * 1000)
 
   function addRanking() {
     // firebaseにでーたをとばすしょり
     router.replace('/ranking')
   }
   //ダミーデータ
-  const resultData: ResultType = {
-    userName: 'よーくん',
-    breakUnit: ['微積', '代数幾何', '情報ネットワーク'],
-    time: 50,
-  }
 
   return (
-    <div css={result}>
-      <div>result</div>
+    <div>
       <div>
-        <p>{resultData.userName}</p>
-        <p>{resultData.time}</p>
+        <div css={header}>
+          <div css={headerSpan}>
+            <span css={span1}>V</span>
+            <span css={span2}>I</span>
+            <span css={span3}>C</span>
+            <span css={span4}>T</span>
+            <span css={span5}>O</span>
+            <span css={span6}>R</span>
+            <span css={span7}>Y</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p css={user}>ユーザネーム</p>
+        <p css={userInf}>{resultData.userName}</p>
+        <p css={user}>かかった時間</p>
+        <p css={userInf}>{resultData.time}秒</p>
         <div>
+          <div css={dropUnit}>落とした教科</div>
           {resultData.breakUnit.map((unit, index) => {
             return (
-              <div key={index}>
-                <p>{unit}</p>
+              <div css={dropSubUnit} key={index}>
+                ・{unit}
               </div>
             )
           })}
         </div>
-        <p>{'ここにスコアを求める関数の結果が入ります'}</p>
-        <button onClick={() => addRanking()}>ランキングに登録する</button>
+        <div css={dropUnitNum}>落とした教科数：{resultData.breakUnit.length}</div>
+        <p css={userScore}>あなたのスコア：{score}</p>
+        <button css={rankButton} onClick={() => addRanking()}>
+          <div css={rankPost}>ランキングに登録する</div>
+        </button>
       </div>
     </div>
   )
