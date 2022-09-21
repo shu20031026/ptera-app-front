@@ -1,7 +1,9 @@
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { useRef } from 'react'
+import { useSetRecoilState } from 'recoil'
 import { getWindowSize } from './GetWindowSize'
+import { resultDataState } from '@/context/atoms'
 
 interface BricksArray {
   x: number
@@ -19,6 +21,14 @@ const SketchComponent = () => {
     p5.colorMode(p5.HSB, p5.width, p5.height, 100)
     p5.noStroke()
   }
+
+  const setResultState = useSetRecoilState(resultDataState)
+  // 次のような関数でデータを渡す
+  // setResultState({
+  //   userName: 'ユーザー名',
+  //   breakUnit: [],//落とした単位の一覧
+  //   time: 0,// かかった時間
+  // })
 
   const router = useRouter()
   const { width, height } = getWindowSize()
