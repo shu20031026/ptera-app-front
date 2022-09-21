@@ -41,7 +41,7 @@ export const Home: NextPage = () => {
       userName: player,
       unitList,
     })
-    router.replace('/game')
+    router.push('/game')
   }
 
   return (
