@@ -3,6 +3,7 @@ import { colors } from '@/styles/template'
 
 export const ranking = css`
   color: ${colors.base.primary};
+  height: 100%;
 `
 
 export const rankingItem = css`
@@ -15,6 +16,7 @@ export const rankingItem = css`
   margin-right: 10px;
   position: relative;
 `
+
 export const nameItem = css`
   text-align: center;
   font-size: 200%;
@@ -111,21 +113,24 @@ export const style = css`
   flex-wrap: wrap;
 `
 
+export const headerContainer = css`
+  width: 100%;
+  background-color: black;
+`
+
 export const head = css`
+  width: 100%;
   text-align: center;
   font-size: 500%;
-  margin-bottom: 0;
-  margin-top: 0;
-  filter: brightness(125%);
+  margin: 0;
 `
 
 export const headSub = css`
   text-align: center;
   font-size: 200%;
   margin-top: 0;
-  margin-bottom: 0;
+  margin-bottom: 20px;
   color: white;
-  background: -webkit-linear-gradient(top, #191970 0%, #a260bf 50%, #4b0082 51%, #000000 100%);
 `
 
 export const rank = css`

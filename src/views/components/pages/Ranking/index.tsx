@@ -16,6 +16,7 @@ import {
   head,
   rank,
   headSub,
+  headerContainer,
 } from './style'
 import { fetchData } from '@/utils/firestore'
 
@@ -59,34 +60,28 @@ export const Ranking: NextPage = () => {
 
   return (
     <div css={ranking}>
-      <h1 css={head}>赤点ランキング</h1>
-      <p css={headSub}>…最悪の世代へ</p>
-      <ul css={style}>
+      <div css={headerContainer}>
+        <h1 css={head}>RED Score Ranking</h1>
+        <p css={headSub}>成績が最悪の世代達</p>
+      </div>
+      <div css={style}>
         {result.map((doc, i) => (
-          <div key={i}>
-            <div>
-              <a css={rank} href='#'>
-                ☆{i + 1}位
-              </a>
-            </div>
-
-            <div css={rankingItem}>
-              <img css={rankStatus} src={rankingStatus[i]} />
-              <img css={rankPic} src={rankingPic[i]} />
-              <img
-                css={pictureSize}
-                src='http://blog-imgs-35.fc2.com/y/u/z/yuzudrops/20110911151248679.png'
-              />
-              <div css={wrapper}>
-                <p css={jobItem}>{jobStatus[i]}</p>
-                <p css={dropSubItem}>{doc.unit}</p>
-                <p css={nameItem}>{doc.name}</p>
-                <p css={dropItem}>score:{doc.score}</p>
-              </div>
+          <div css={rankingItem} key={i}>
+            <img css={rankStatus} src={rankingStatus[i]} />
+            <img css={rankPic} src={rankingPic[i]} />
+            <img
+              css={pictureSize}
+              src='http://blog-imgs-35.fc2.com/y/u/z/yuzudrops/20110911151248679.png'
+            />
+            <div css={wrapper}>
+              <p css={jobItem}>{jobStatus[i]}</p>
+              <p css={dropSubItem}>{doc.unit}</p>
+              <p css={nameItem}>{doc.name}</p>
+              <p css={dropItem}>score:{doc.score}</p>
             </div>
           </div>
         ))}
-      </ul>
+      </div>
     </div>
   )
 }
