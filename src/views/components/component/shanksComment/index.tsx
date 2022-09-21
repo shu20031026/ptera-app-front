@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
-import { shanksContainer } from './style'
+import { shanksBox, shanksContainer, shanksTalk } from './style'
 import { shanksWords } from '@/constant/shanksWords'
 import { shuffleArray } from '@/utils/randomArray'
 
 const shanks = shuffleArray(shanksWords)
 export const ShanksComment = () => {
-  const [shanksComment, setShanksComment] = useState('シャンクス')
-  const shanksCount = useRef(0)
+  const [shanksComment, setShanksComment] = useState(shanks[0])
+  const shanksCount = useRef(1)
   useEffect(() => {
     const id = setInterval(() => {
       setShanksComment(shanks[shanksCount.current])
@@ -18,7 +18,10 @@ export const ShanksComment = () => {
   }, [])
   return (
     <div css={shanksContainer}>
-      <p>{shanksComment}</p>
+      <div css={shanksBox}>
+        <p css={shanksTalk}>赤髪の男</p>
+        <p css={shanksTalk}>『{shanksComment}』</p>
+      </div>
     </div>
   )
 }
