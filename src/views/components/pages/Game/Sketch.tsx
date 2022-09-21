@@ -49,7 +49,7 @@ const SketchComponent: any = (props: UserDataType) => {
   const paddleHeight = 10
   const paddleWidth = 90
   const paddleX = useRef((width - paddleWidth) / 2)
-  let lives = 1000
+  let lives = 2
   const score = useRef(0)
   const brickRowCount = 4
   const brickColumnCount = 5
@@ -60,8 +60,6 @@ const SketchComponent: any = (props: UserDataType) => {
   const brickOffsetLeft = 30
   let textBricks: BricksArray[][] = []
   const brickNum = useRef(0)
-  let mugiwaraImg = ''
-
   let time: number
   const oneSec = 1000
   let elapsedTime = 0
@@ -162,6 +160,7 @@ const SketchComponent: any = (props: UserDataType) => {
       breakUnit: dropUnit,
       time: count.current,
     })
+    router.replace('/result')
     console.log(props.userName)
     console.log(dropUnit)
     console.log(count.current)
