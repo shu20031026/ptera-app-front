@@ -2,15 +2,21 @@ import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useRecoilValue } from 'recoil'
 import { result } from './style'
-import { resultDataState } from '@/context/atoms'
+import { resultDataState, ResultType } from '@/context/atoms'
 
 export const Result: NextPage = () => {
-  const resultData = useRecoilValue(resultDataState)
+  // const resultData = useRecoilValue(resultDataState)
   const router = useRouter()
 
   function addRanking() {
     // firebaseにでーたをとばすしょり
     router.replace('/ranking')
+  }
+  //ダミーデータ
+  const resultData: ResultType = {
+    userName: 'よーくん',
+    breakUnit: ['微積', '代数幾何', '情報ネットワーク'],
+    time: 50,
   }
 
   return (
