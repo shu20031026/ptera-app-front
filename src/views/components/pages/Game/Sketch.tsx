@@ -42,8 +42,8 @@ const SketchComponent: any = (props: UserDataType) => {
   const startBricks = units.length
   const { width, height } = getWindowSize()
   const ballRadius = 25
-  const x = useRef(width - 100)
-  const y = useRef(height - 30)
+  const x = useRef(width)
+  const y = useRef(height)
   let dx = 5
   let dy = -5
   const paddleHeight = 10
@@ -113,11 +113,11 @@ const SketchComponent: any = (props: UserDataType) => {
         let t = textBricks[c][r]
         if (t.status == 1) {
           if (
-            x.current > t.x &&
-            x.current < t.x + brickWidth &&
-            y.current > t.y &&
-            y.current < t.y + brickHeight &&
-            brickNum.current < units.length
+            x.current > t.x - 10 &&
+            x.current < t.x + brickWidth + 10 &&
+            y.current > t.y - 10 &&
+            y.current < t.y + brickHeight + 10 &&
+            brickNum.current < startBricks
           ) {
             dy = -dy
             t.status = 0
@@ -126,7 +126,7 @@ const SketchComponent: any = (props: UserDataType) => {
             dropUnit.push(deleteArr)
             units.splice(index, 1)
             score.current++
-            console.log(dropUnit.length)
+            console.log(x.current, y.current, t.x, t.y)
             if (dropUnit.length >= startBricks) {
               console.log('test')
               gameOver()
@@ -165,13 +165,58 @@ const SketchComponent: any = (props: UserDataType) => {
     console.log(dropUnit)
     console.log(count.current)
   }
-
   useEffect(() => {
     const id = setInterval(() => {
       count.current += 1
     }, 1000)
     return () => clearInterval(id)
   }, [])
+
+  // デバッグ用の関数なので残しといてください
+  // const keyIsPressed = (p5: any) => {
+  //   p5.clear()
+  //   drawBall(p5, x.current, y.current, ballRadius)
+  //   drawPaddle(p5)
+  //   drawUnit(p5)
+  //   drawlives(p5)
+  //   collisionDetection()
+  //   p5.textSize(35)
+  //   p5.fill('#d6d982')
+  //   p5.text(count.current + '秒経過', width / 2.16, height / 2.4)
+  //   const now = p5.millis()
+  //   elapsedTime = now - time
+  //   if (y.current < 10) {
+  //     dy = -dy
+  //   }
+  //   if (x.current + dx > width - ballRadius || x.current + dx < ballRadius) {
+  //     dx = -dx
+  //     if (y.current + dy < ballRadius) {
+  //       dy = -dy
+  //     }
+  //   } else if (y.current + dy > height - ballRadius) {
+  //     if (x.current + 12 > paddleX.current && x.current - 20 < paddleX.current + paddleWidth) {
+  //       dy = -dy
+  //     } else {
+  //       lives--
+  //       dy = -dy
+  //       if (lives === 0) {
+  //         p5.noLoop()
+  //         gameOver()
+  //       }
+  //     }
+  //   }
+  //   x.current += dx
+  //   y.current += dy
+  //   // if (p5.keyIsPressed(p5.LEFT_ARROW)) {
+  //   //   if (paddleX.current >= ballRadius) {
+  //   //     paddleX.current -= 20
+  //   //   }
+  //   // } else if (p5.keyIsPressed(p5.RIGHT_ARROW)) {
+  //   //   if (paddleX.current <= width - ballRadius - paddleWidth) {
+  //   //     paddleX.current += 20
+  //   //   }
+  //   // }
+  // }
 
   const draw = (p5: any) => {
     p5.clear()
