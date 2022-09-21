@@ -7,7 +7,12 @@ export const homeContainer = css`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: linear-gradient(to bottom, ${colors.base.primary} 50%, ${colors.base.dark} 100%);
+  background: linear-gradient(
+    135deg,
+    ${colors.text.secondly},
+    ${colors.base.primary},
+    ${colors.base.dark}
+  );
 `
 
 export const gameTitle = css`
@@ -24,8 +29,11 @@ export const homeWrapper = css`
 export const unitListContainer = css`
   display: flex;
   flex-direction: column;
+  gap: 20px;
   height: 30vh;
+  margin-bottom: 50px;
   overflow-y: scroll;
+  padding-bottom: 50px;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -37,12 +45,23 @@ export const nameInput = css`
   font-size: large;
   background: rgba(255, 255, 255, 0.5);
   margin-bottom: 50px;
+  font-size: 35px;
+  padding: 10px;
+  transition: 0.3s;
   &:first-child {
     margin-top: 5px;
   }
   &:hover {
-    background: rgba(255, 255, 255, 0.8);
+    background: ${colors.text.primary};
     transform: translateY(-5px);
+  }
+  &:focus {
+    outline: none;
+  }
+  &::placeholder {
+    color: ${colors.base.primary};
+    opacity: 0.8;
+    font-size: large;
   }
   border: none;
 `
@@ -55,6 +74,7 @@ export const inputItemNumber = css`
   color: ${colors.text.primary};
   font-size: 40px;
   font-weight: 500;
+  min-width: 45px;
   margin: 0;
   margin-left: 0 10px;
 `
@@ -64,7 +84,6 @@ export const inputItem = css`
   min-height: 50px;
   font-size: 35px;
   font-weight: bold;
-  margin-bottom: 20px;
   margin-left: 10px;
   margin-right: 10px;
   transform: skewX(-15deg);
@@ -73,6 +92,7 @@ export const inputItem = css`
   border-right: none;
   padding: 5px;
   background: rgba(255, 255, 255, 0.8);
+  transition: 0.3s;
   &::placeholder {
     color: ${colors.base.primary};
     opacity: 0.8;
@@ -89,9 +109,10 @@ export const inputItem = css`
     border: none;
   }
   &:hover {
-    transform: translateY(-5px);
     transform: skewX(-15deg);
+    height: 49px;
     border: thick double ${colors.base.primary};
+    background: ${colors.text.primary};
     border-top: none;
     border-right: none;
   }
@@ -99,14 +120,35 @@ export const inputItem = css`
 `
 
 export const addFormButton = css`
-  width: 100%;
+  width: 70%;
   min-height: 50px;
   font-size: large;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 25px;
+  border: thick double ${colors.base.primary};
+  transition: 0.3s;
+  &:hover {
+    opacity: 0.8;
+  }
 `
 
 export const startButton = css`
-  width: 100%;
+  width: 70%;
   height: 50px;
   font-size: large;
+  border: none;
+  cursor: pointer;
+  border-radius: 25px;
+  border: thick double ${colors.base.primary};
+  transition: 0.3s;
+  &:hover {
+    opacity: 0.8;
+  }
+`
+
+export const refFlag = css`
+  visibility: hidden;
+  height: 0;
 `
