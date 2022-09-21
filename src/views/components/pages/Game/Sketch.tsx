@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useRef, useEffect } from 'react'
 import { useSetRecoilState } from 'recoil'
 import { getWindowSize } from './GetWindowSize'
-import { resultDataState } from '@/context/atoms'
+import { userDataState, resultDataState, UserDataType } from '@/context/atoms'
 
 interface BricksArray {
   x: number
@@ -15,12 +15,11 @@ const Sketch = dynamic(import('react-p5'), {
   ssr: false,
 })
 
-const SketchComponent = () => {
+const SketchComponent: any = (props: UserDataType) => {
   const setup = (p5: any, canvasParentRef: Element) => {
     p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef)
     p5.colorMode(p5.HSB, p5.width, p5.height, 100)
-
-    time = p5.millis();
+    time = p5.millis()
   }
 
   const preload = (p5: any) => {
@@ -36,6 +35,11 @@ const SketchComponent = () => {
   // })
 
   const router = useRouter()
+  // ↓テスト用の配列(unitsどちらか//して使用)
+  //const units = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11']
+  const units = Object.values(props.unitList)
+  let dropUnit: string[] = []
+  const startBricks = units.length
   const { width, height } = getWindowSize()
   const ballRadius = 25
   const x = useRef(width - 100)
@@ -54,21 +58,17 @@ const SketchComponent = () => {
   const brickPadding = 10
   const brickOffsetTop = 30
   const brickOffsetLeft = 30
-  let text: BricksArray[][] = []
-  let bricks: BricksArray[][] = []
-  let mugiwaraImg = ''
-  
-  let time:number;
-  const oneSec = 1000;
-  let elapsedTime = 0;
-  const count = useRef(0);
-  
+  let textBricks: BricksArray[][] = []
+  const brickNum = useRef(0)
+  let time: number
+  const oneSec = 1000
+  let elapsedTime = 0
+  const count = useRef(0)
+
   for (let c = 0; c < brickColumnCount; c++) {
-    bricks[c] = []
-    text[c] = []
+    textBricks[c] = []
     for (let r = 0; r < brickRowCount; r++) {
-      bricks[c][r] = { x: 0, y: 0, status: 1 }
-      text[c][r] = { x: 0, y: 0, status: 1 }
+      textBricks[c][r] = { x: 0, y: 0, status: 1 }
     }
   }
 
@@ -79,107 +79,112 @@ const SketchComponent = () => {
   }
 
   const drawPaddle = (p5: any) => {
+    p5.fill('#0095DD')
     p5.rect(paddleX.current, p5.height - paddleHeight, paddleWidth, paddleHeight)
-    p5.fill('#f0f8ff')
   }
 
-  const drawBricks = (p5: any) => {
+  const drawUnit = (p5: any) => {
+    brickNum.current = 0
     for (let c = 0; c < brickColumnCount; c++) {
       for (let r = 0; r < brickRowCount; r++) {
-        if (bricks[c][r].status === 1) {
+        if (textBricks[c][r].status === 1) {
           const brickX = c * (brickWidth + brickPadding) + brickOffsetLeft
           const brickY = r * (brickHeight + brickPadding) + brickOffsetTop
-          bricks[c][r].x = brickX
-          bricks[c][r].y = brickY
-          p5.rect(brickX, brickY, brickWidth, brickHeight)
-          p5.fill('#ffffff')
-        }
-      }
-    }
-  }
-
-  const drawText = (p5: any) => {
-    for (let c = 0; c < brickColumnCount; c++) {
-      for (let r = 0; r < brickRowCount; r++) {
-        if (text[c][r].status === 1) {
-          const brickX = c * (brickWidth + brickPadding) + brickOffsetLeft
-          const brickY = r * (brickHeight + brickPadding) + brickOffsetTop
-          text[c][r].x = brickX
-          text[c][r].y = brickY
-          p5.text('test', brickX, brickY, brickWidth, brickHeight)
-          p5.textSize(35)
-          p5.fill('#ff2828')
+          textBricks[c][r].x = brickX
+          textBricks[c][r].y = brickY
+          if (brickNum.current < units.length) {
+            p5.fill(255, 255, 255)
+            p5.rect(brickX, brickY, brickWidth, brickHeight)
+            p5.fill(0, 0, 0)
+            p5.text(units[brickNum.current], brickX, brickY, brickWidth, brickHeight)
+            p5.textSize(35)
+            p5.fill('#ff2828')
+          }
+          brickNum.current++
         }
       }
     }
   }
 
   const collisionDetection = () => {
+    brickNum.current = 0
     for (let c = 0; c < brickColumnCount; c++) {
       for (let r = 0; r < brickRowCount; r++) {
-        let b = bricks[c][r]
-        let t = text[c][r]
-        if (b.status == 1) {
+        let t = textBricks[c][r]
+        if (t.status == 1) {
           if (
-            x.current > b.x &&
-            x.current < b.x + brickWidth &&
-            y.current > b.y &&
-            y.current < b.y + brickHeight
+            x.current > t.x &&
+            x.current < t.x + brickWidth &&
+            y.current > t.y &&
+            y.current < t.y + brickHeight &&
+            brickNum.current < units.length
           ) {
             dy = -dy
-            b.status = 0
-            t.status= 0
+            t.status = 0
+            let deleteArr = units[brickNum.current]
+            let index = units.indexOf(deleteArr)
+            dropUnit.push(deleteArr)
+            units.splice(index, 1)
             score.current++
+            console.log(dropUnit.length)
+            if (dropUnit.length >= startBricks) {
+              console.log('test')
+              gameOver()
+            }
           }
         }
+        brickNum.current++
       }
     }
   }
 
   const drawlives = (p5: any) => {
-    if(lives >= 2){
-      p5.textSize(20);
+    if (lives >= 2) {
+      p5.textSize(20)
 
-      p5.textSize(58);
-      p5.textFont('Helvetica');
+      p5.textSize(58)
+      p5.textFont('Helvetica')
       p5.fill('#e3fcec')
-      p5.text('前期', width/2.18, height/2)
-    }
-
-    else if(lives === 1){
-      p5.textSize(58);
-      p5.textFont('Helvetica');
+      p5.text('前期', width / 2.18, height / 2)
+    } else if (lives === 1) {
+      p5.textSize(58)
+      p5.textFont('Helvetica')
       p5.fill('#e3fcec')
-      p5.text('後期', width/2.18, height/2)
+      p5.text('後期', width / 2.18, height / 2)
     }
   }
 
   const gameOver = () => {
-    alert('留年!!!!!!!!')
-    router.push('/')
+    setResultState({
+      userName: props.userName,
+      breakUnit: dropUnit,
+      time: count.current,
+    })
+    router.replace('/result')
+    console.log(props.userName)
+    console.log(dropUnit)
+    console.log(count.current)
   }
 
-  //タイマーの処理
   useEffect(() => {
     const id = setInterval(() => {
-      count.current += 1;
-    }, 1000);
-    return () => clearInterval(id);
+      count.current += 1
+    }, 1000)
+    return () => clearInterval(id)
   }, [])
 
   const draw = (p5: any) => {
     p5.clear()
     drawBall(p5, x.current, y.current, ballRadius)
     drawPaddle(p5)
+    drawUnit(p5)
     drawlives(p5)
     collisionDetection()
-    drawBricks(p5)
-    drawText(p5)
-
-    p5.textSize(35);
+    p5.textSize(35)
     p5.fill('#d6d982')
-    p5.text(count.current + '秒経過',width/2.16, height/2.4);
-    
+    p5.text(count.current + '秒経過', width / 2.16, height / 2.4)
+    const now = p5.millis()
+    elapsedTime = now - time
     if (y.current < 10) {
       dy = -dy
     }
@@ -191,7 +196,7 @@ const SketchComponent = () => {
     } else if (y.current + dy > height - ballRadius) {
       if (x.current + 12 > paddleX.current && x.current - 20 < paddleX.current + paddleWidth) {
         dy = -dy
-      } else{
+      } else {
         lives--
         dy = -dy
         if (lives === 0) {
