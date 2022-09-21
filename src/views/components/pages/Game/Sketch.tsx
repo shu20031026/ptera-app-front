@@ -113,27 +113,28 @@ const SketchComponent: any = (props: UserDataType) => {
         let t = textBricks[c][r]
         if (t.status == 1) {
           if (
-            x.current > t.x - 10 &&
-            x.current < t.x + brickWidth + 10 &&
-            y.current > t.y - 10 &&
-            y.current < t.y + brickHeight + 10 &&
+            x.current > t.x - 5 &&
+            x.current < t.x + brickWidth + 5 &&
+            y.current > t.y - 5 &&
+            y.current < t.y + brickHeight + 5 &&
             brickNum.current < startBricks
           ) {
             dy = -dy
             t.status = 0
             let deleteArr = units[brickNum.current]
+            console.log(brickNum.current)
+            console.log(deleteArr)
             let index = units.indexOf(deleteArr)
             dropUnit.push(deleteArr)
             units.splice(index, 1)
             score.current++
             console.log(x.current, y.current, t.x, t.y)
             if (dropUnit.length >= startBricks) {
-              console.log('test')
               gameOver()
             }
           }
+          brickNum.current++
         }
-        brickNum.current++
       }
     }
   }
