@@ -31,12 +31,12 @@ const SketchComponent = () => {
   const y = useRef(height - 30)
   let dx = 3
   let dy = -3
-  const paddleHeight = 15
-  const paddleWidth = 85
+  const paddleHeight = 10
+  const paddleWidth = 120
   const paddleX = useRef((width - paddleWidth) / 2)
   let lives = 2
-  let score = 0
-  const brickRowCount = 4
+  const score = useRef(0)
+  const brickRowCount = 3
   const brickColumnCount = 5
   const brickWidth = width / 5.5
   const brickHeight = 35
@@ -58,12 +58,12 @@ const SketchComponent = () => {
 
   const drawBall = (p5: any, ball_x: number, ball_y: number, b_ballRadius: number) => {
     p5.clear()
-    p5.image(mugiwaraImg, ball_x, ball_y, 30, 30)
+    p5.image(mugiwaraImg, ball_x, ball_y, 45, 45)
   }
 
   const drawPaddle = (p5: any) => {
     p5.rect(paddleX.current, p5.height - paddleHeight, paddleWidth, paddleHeight)
-    p5.fill('#0095DD')
+    p5.fill('#f0f8ff')
   }
 
   const drawBricks = (p5: any) => {
@@ -75,7 +75,7 @@ const SketchComponent = () => {
           bricks[c][r].x = brickX
           bricks[c][r].y = brickY
           p5.rect(brickX, brickY, brickWidth, brickHeight)
-          p5.fill('#0095DD')
+          p5.fill('#f0f8ff')
         }
       }
     }
@@ -98,19 +98,21 @@ const SketchComponent = () => {
   }
 
   const drawlives = (p5: any) => {
+    p5.textSize(30);
+    p5.fill('#d5ffcc')
+    p5.text(score.current ,width/2,height/1.5);
+
 
     if(lives >= 2){
-      p5.font = "Source Han Sans";
       p5.textSize(55);
-      p5.fill('#ff69b4')
-      p5.text('前期', width/2.2, height/2)
+      p5.fill('#ffe6ed')
+      p5.text('前期', width/2.1, height/2)
     }
 
     else if(lives === 1){
-      p5.font = "Ubuntu";
       p5.textSize(55);
-      p5.fill('#dc143c')
-      p5.text('後期', width/2.2, height/2)
+      p5.fill('#e5ccff')
+      p5.text('後期', width/2.1, height/2)
     }  
   }
 
@@ -129,7 +131,7 @@ const SketchComponent = () => {
             dy = -dy
             b.status = 0
             t.status = 0
-            score++
+            score.current++
           }
         }
       }
@@ -138,7 +140,7 @@ const SketchComponent = () => {
 
   const gameOver = () => {
     alert('留年!!!!!!!!')
-    console.log(score)
+    console.log(score.current)
     router.replace('/')
   }
 
@@ -159,7 +161,7 @@ const SketchComponent = () => {
         dy = -dy
       }
     } else if (y.current + dy > height - ballRadius) {
-      if (x.current > paddleX.current && x.current < paddleX.current + paddleWidth) {
+      if (x.current + 20 > paddleX.current && x.current - 20 < paddleX.current + paddleWidth) {
         dy = -dy
       } else{
         lives--
