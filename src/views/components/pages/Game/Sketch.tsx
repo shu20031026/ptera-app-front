@@ -29,14 +29,14 @@ const SketchComponent = () => {
   const ballRadius = 25
   const x = useRef(width - 100)
   const y = useRef(height - 30)
-  let dx = 3
-  let dy = -3
+  let dx = 5
+  let dy = -5
   const paddleHeight = 10
-  const paddleWidth = 120
+  const paddleWidth = 90
   const paddleX = useRef((width - paddleWidth) / 2)
   let lives = 2
   const score = useRef(0)
-  const brickRowCount = 3
+  const brickRowCount = 4
   const brickColumnCount = 5
   const brickWidth = width / 5.5
   const brickHeight = 35
@@ -90,8 +90,8 @@ const SketchComponent = () => {
           text[c][r].x = brickX
           text[c][r].y = brickY
           p5.text('test', brickX, brickY, brickWidth, brickHeight)
-          p5.textSize(15)
-          p5.fill(0, 0, 0)
+          p5.textSize(28)
+          p5.fill('#660066')
         }
       }
     }
@@ -100,19 +100,19 @@ const SketchComponent = () => {
   const drawlives = (p5: any) => {
     p5.textSize(30);
     p5.fill('#d5ffcc')
-    p5.text(score.current ,width/2,height/1.5);
+    p5.text(score.current,width/2.05,height/1.5);
 
 
     if(lives >= 2){
-      p5.textSize(55);
+      p5.textSize(60);
       p5.fill('#ffe6ed')
-      p5.text('前期', width/2.1, height/2)
+      p5.text('前期', width/2.18, height/2)
     }
 
     else if(lives === 1){
-      p5.textSize(55);
+      p5.textSize(60);
       p5.fill('#e5ccff')
-      p5.text('後期', width/2.1, height/2)
+      p5.text('後期', width/2.18, height/2)
     }  
   }
 
@@ -161,7 +161,7 @@ const SketchComponent = () => {
         dy = -dy
       }
     } else if (y.current + dy > height - ballRadius) {
-      if (x.current + 20 > paddleX.current && x.current - 20 < paddleX.current + paddleWidth) {
+      if (x.current + 12 > paddleX.current && x.current - 20 < paddleX.current + paddleWidth) {
         dy = -dy
       } else{
         lives--
