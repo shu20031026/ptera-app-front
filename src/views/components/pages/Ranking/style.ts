@@ -19,10 +19,12 @@ export const rankingItem = css`
 
 export const nameItem = css`
   text-align: center;
-  font-size: 200%;
+  font-size: 50px;
   margin: 0;
-  margin-bottom: -50px;
+  margin-bottom: -80px;
+  font-weight: 600;
   color: #da8e00;
+  -webkit-text-stroke: 1px white;
   background: -webkit-linear-gradient(
     -45deg,
     #f7de05,
@@ -64,11 +66,13 @@ export const jobItem = css`
   font-size: 500%;
   margin: 0;
   margin-top: 70px;
-  color: #ff8c00;
-  background: -webkit-linear-gradient(0deg, #40e0d0, #ff8c00, #ff0080);
+  color: white;
+  font-weight: 700;
+  -webkit-text-stroke: 3px red;
+  /* background: -webkit-linear-gradient(0deg, #40e0d0, #ff8c00, #ff0080);
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: brightness(150%);
+  filter: brightness(150%); */
 `
 
 export const pictureSize = css`
@@ -138,4 +142,31 @@ export const rank = css`
   font-size: 250%;
   color: #00ffff;
   margin-bottom: 10px;
+`
+
+export const kingArea = css`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+`
+
+export const foursArea = css`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 30px;
+`
+
+export const othersArea = css`
+  width: 100%;
+  color: ${colors.text.primary};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
+
+export const othersItem = css`
+  width: 70%;
+  display: flex;
 `
