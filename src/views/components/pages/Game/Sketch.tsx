@@ -3,11 +3,7 @@ import { useRouter } from 'next/router'
 import { useRef } from 'react'
 import { useSetRecoilState } from 'recoil'
 import { getWindowSize } from './GetWindowSize'
-import { userDataState, resultDataState } from '@/context/atoms'
-
-type Props = {
-  unitList: string[]
-}
+import { userDataState, resultDataState, UserDataType } from '@/context/atoms'
 
 interface BricksArray {
   x: number
@@ -19,7 +15,7 @@ const Sketch = dynamic(import('react-p5'), {
   ssr: false,
 })
 
-const SketchComponent: any = (props: Props) => {
+const SketchComponent: any = (props: UserDataType) => {
   const setup = (p5: any, canvasParentRef: Element) => {
     p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef)
     p5.colorMode(p5.HSB, p5.width, p5.height, 100)
@@ -35,8 +31,9 @@ const SketchComponent: any = (props: Props) => {
   // })
 
   const router = useRouter()
+  // ↓テスト用の配列(unitsどちらか//して使用)
   //const units = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11']
-  const units = Object.values(props)
+  const units = Object.values(props.unitList)
   let dropUnit: string[] = []
   const { width, height } = getWindowSize()
   const ballRadius = 50
@@ -57,7 +54,6 @@ const SketchComponent: any = (props: Props) => {
   const brickOffsetTop = 30
   const brickOffsetLeft = 30
   let text: BricksArray[][] = []
-  let bricks: BricksArray[][] = []
   const brickNum = useRef(0)
   for (let c = 0; c < brickColumnCount; c++) {
     text[c] = []
@@ -113,12 +109,9 @@ const SketchComponent: any = (props: Props) => {
           ) {
             dy = -dy
             t.status = 0
-            console.log(brickNum.current)
             let deleteArr = units[brickNum.current]
             let index = units.indexOf(deleteArr)
             dropUnit.push(deleteArr[0])
-            console.log(dropUnit)
-
             units.splice(index, 1)
             score++
           }
@@ -129,9 +122,11 @@ const SketchComponent: any = (props: Props) => {
   }
 
   const gameOver = () => {
-    alert('GAME OVER')
-    console.log(score)
-    router.replace('/')
+    setResultState({
+      userName: props.userName,
+      breakUnit: dropUnit,
+      time: 0,
+    })
   }
 
   const draw = (p5: any) => {
@@ -154,7 +149,7 @@ const SketchComponent: any = (props: Props) => {
       } else {
         lives--
         if (lives === 0) {
-          //gameOver()
+          gameOver()
           p5.noLoop()
         }
       }
