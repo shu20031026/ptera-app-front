@@ -10,6 +10,7 @@ export const Game: NextPage = () => {
   const userData = useRecoilValue(userDataState)
   return (
     <div css={game} id='canvas-parent'>
+      <ShanksComment />
       <SketchComponent {...userData} />
     </div>
   )

@@ -160,7 +160,7 @@ const SketchComponent: any = (props: UserDataType) => {
       breakUnit: dropUnit,
       time: count.current,
     })
-    router.replace('/result')
+    router.push('/result')
     console.log(props.userName)
     console.log(dropUnit)
     console.log(count.current)
