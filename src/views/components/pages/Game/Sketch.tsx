@@ -103,7 +103,6 @@ const SketchComponent: any = (props: UserDataType) => {
             p5.textSize(35)
             p5.fill('#ff2828')
           }
-
           brickNum.current++
         }
       }
@@ -168,8 +167,8 @@ const SketchComponent: any = (props: UserDataType) => {
     p5.clear()
     drawBall(p5, x.current, y.current, ballRadius)
     drawPaddle(p5)
-    drawlives(p5)
     drawUnit(p5)
+    drawlives(p5)
     collisionDetection()
     p5.textSize(35)
     p5.fill('#d6d982')
