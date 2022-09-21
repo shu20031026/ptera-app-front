@@ -1,5 +1,6 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
+import { useRecoilValue } from 'recoil'
 import {
   dropSubUnit,
   dropUnit,
@@ -21,33 +22,33 @@ import {
   userInf,
   userScore,
 } from './style'
-import { ResultType } from '@/context/atoms'
+import { resultDataState, ResultType } from '@/context/atoms'
 
 export const Result: NextPage = () => {
-  // const resultData = useRecoilValue(resultDataState)
+  const resultData = useRecoilValue(resultDataState)
   const router = useRouter()
 
-  const resultData: ResultType = {
-    userName: 'よーくん',
-    breakUnit: [
-      'a',
-      'b',
-      'c',
-      '情報ネットワーク',
-      '情報ネットワーク',
-      '情報ネットワーク',
-      '情報ネットワーク',
-      '情報ネットワーク',
-      '情報ネットワーク',
-      '情報ネットワーク',
-      '情報ネットワーク',
-      '情報ネットワーク',
-      '情報ネットワーク',
-      '情報ネットワーク',
-      '情報ネットワーク',
-    ],
-    time: 42.5,
-  }
+  // const resultData: ResultType = {
+  //   userName: 'よーくん',
+  //   breakUnit: [
+  //     'a',
+  //     'b',
+  //     'c',
+  //     '情報ネットワーク',
+  //     '情報ネットワーク',
+  //     '情報ネットワーク',
+  //     '情報ネットワーク',
+  //     '情報ネットワーク',
+  //     '情報ネットワーク',
+  //     '情報ネットワーク',
+  //     '情報ネットワーク',
+  //     '情報ネットワーク',
+  //     '情報ネットワーク',
+  //     '情報ネットワーク',
+  //     '情報ネットワーク',
+  //   ],
+  //   time: 42.5,
+  // }
 
   const score = Math.floor(resultData.breakUnit.length * (1 / (resultData.time - 2.5)) * 1000)
 
