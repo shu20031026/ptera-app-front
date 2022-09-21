@@ -17,12 +17,12 @@ const SketchComponent = () => {
   const setup = (p5: any, canvasParentRef: Element) => {
     p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef)
     p5.colorMode(p5.HSB, p5.width, p5.height, 100)
-    //p5.noStroke()
+
     time = p5.millis();
   }
 
   const preload = (p5: any) => {
-    mugiwaraImg = p5.loadImage('mugiwarabouhi.png')
+    //mugiwaraImg = p5.loadImage('mugiwarabouhi.png')
   }
 
   const router = useRouter()
@@ -47,7 +47,8 @@ const SketchComponent = () => {
   let text: BricksArray[][] = []
   let bricks: BricksArray[][] = []
   let mugiwaraImg = ''
-
+  let myFont;
+  //タイマーの処理
   let time:number;
   const oneSec = 1000;
   let elapsedTime = 0;
@@ -64,7 +65,8 @@ const SketchComponent = () => {
 
   const drawBall = (p5: any, ball_x: number, ball_y: number, b_ballRadius: number) => {
     p5.clear()
-    p5.image(mugiwaraImg, ball_x, ball_y, 45, 45)
+    p5.fill('#e6fff7')
+    p5.arc(ball_x, ball_y, ballRadius, ballRadius, 0, Math.PI * 2)
   }
 
   const drawPaddle = (p5: any) => {
@@ -81,7 +83,7 @@ const SketchComponent = () => {
           bricks[c][r].x = brickX
           bricks[c][r].y = brickY
           p5.rect(brickX, brickY, brickWidth, brickHeight)
-          p5.fill('#f0f8ff')
+          p5.fill('#ffffff')
         }
       }
     }
@@ -96,8 +98,8 @@ const SketchComponent = () => {
           text[c][r].x = brickX
           text[c][r].y = brickY
           p5.text('test', brickX, brickY, brickWidth, brickHeight)
-          p5.textSize(28)
-          p5.fill('#660066')
+          p5.textSize(35)
+          p5.fill('#ff2828')
         }
       }
     }
@@ -117,11 +119,29 @@ const SketchComponent = () => {
           ) {
             dy = -dy
             b.status = 0
-            t.status = 0
+            t.statお前は= 0
             score.current++
           }
         }
       }
+    }
+  }
+
+  const drawlives = (p5: any) => {
+    if(lives >= 2){
+      p5.textSize(20);
+
+      p5.textSize(58);
+      p5.textFont('Helvetica');
+      p5.fill('#e3fcec')
+      p5.text('前期', width/2.18, height/2)
+    }
+
+    else if(lives === 1){
+      p5.textSize(58);
+      p5.textFont('Helvetica');
+      p5.fill('#e3fcec')
+      p5.text('後期', width/2.18, height/2)
     }
   }
 
@@ -135,12 +155,14 @@ const SketchComponent = () => {
     p5.clear()
     drawBall(p5, x.current, y.current, ballRadius)
     drawPaddle(p5)
+    drawlives(p5)
     collisionDetection()
     drawBricks(p5)
     drawText(p5)
 
-    p5.textSize(30);
-    p5.text(count + '秒経過',width/2.18, height/2);
+    p5.textSize(35);
+    p5.fill('#d6d982')
+    p5.text(count + '秒経過',width/2.16, height/2.4);
     const now = p5.millis();
     elapsedTime = now - time;
     if (elapsedTime >= oneSec) {
