@@ -1,5 +1,4 @@
 import type { NextPage } from 'next'
-import { useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import SketchComponent from './Sketch'
 import { game } from './style'
