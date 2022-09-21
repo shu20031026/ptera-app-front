@@ -34,7 +34,7 @@ export const Result: NextPage = () => {
             )
           })}
         </p>
-        <p>{'ここにスコアが入ります'}</p>
+        <p>{'ここにスコアを求める関数の結果が入ります'}</p>
         <button onClick={() => addRanking()}>ランキングに登録する</button>
       </div>
     </div>
