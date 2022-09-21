@@ -2,6 +2,7 @@ import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useRecoilValue } from 'recoil'
 import {
+  buttonWrapper,
   dropSubUnit,
   dropUnit,
   dropUnitNum,
@@ -62,7 +63,7 @@ export const Result: NextPage = () => {
     <div>
       <div>
         <div css={head}>RESULT画面</div>
-        <div css={header}>
+        {/* <div css={header}>
           <div css={headerSpan}>
             <span css={span1}>V</span>
             <span css={span2}>I</span>
@@ -72,7 +73,7 @@ export const Result: NextPage = () => {
             <span css={span6}>R</span>
             <span css={span7}>Y</span>
           </div>
-        </div>
+        </div> */}
       </div>
       <div>
         <p css={user}>ユーザネーム</p>
@@ -91,9 +92,11 @@ export const Result: NextPage = () => {
         </div>
         <div css={dropUnitNum}>落とした教科数：{resultData.breakUnit.length}</div>
         <p css={userScore}>あなたのスコア：{score}</p>
-        <button css={rankButton} onClick={() => addRanking()}>
-          <div css={rankPost}>ランキングに登録する</div>
-        </button>
+        <div css={buttonWrapper}>
+          <button css={rankButton} onClick={() => addRanking()}>
+            <div css={rankPost}>ランキングに登録する</div>
+          </button>
+        </div>
       </div>
     </div>
   )

@@ -5,8 +5,8 @@ import { shuffleArray } from '@/utils/randomArray'
 
 const shanks = shuffleArray(shanksWords)
 export const ShanksComment = () => {
-  const [shanksComment, setShanksComment] = useState('シャンクス')
-  const shanksCount = useRef(0)
+  const [shanksComment, setShanksComment] = useState(shanks[0])
+  const shanksCount = useRef(1)
   useEffect(() => {
     const id = setInterval(() => {
       setShanksComment(shanks[shanksCount.current])

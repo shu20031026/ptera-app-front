@@ -255,10 +255,16 @@ export const rankButton = css`
   right: 0;
   top: 0%;
   bottom: 0;
+  margin: 0 auto;
 `
 
 export const rankPost = css`
   text-decoration: underline;
   text-align: center;
   font-size: 200%;
+`
+
+export const buttonWrapper = css`
+  width: 100%;
+  text-align: center;
 `
