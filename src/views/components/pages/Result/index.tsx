@@ -54,7 +54,7 @@ export const Result: NextPage = () => {
 
   function addRanking() {
     // firebaseにでーたをとばすしょり
-    router.replace('/ranking')
+    router.push('/ranking')
   }
   //ダミーデータ
 
