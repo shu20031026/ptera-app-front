@@ -34,7 +34,7 @@ const SketchComponent = () => {
   let score = 0
   const brickRowCount = 4
   const brickColumnCount = 5
-  const brickWidth = width / 6
+  const brickWidth = width / 5.5
   const brickHeight = 35
   const brickPadding = 10
   const brickOffsetTop = 30
@@ -75,6 +75,7 @@ const SketchComponent = () => {
       }
     }
   }
+
   const drawText = (p5: any) => {
     for (let c = 0; c < brickColumnCount; c++) {
       for (let r = 0; r < brickRowCount; r++) {
@@ -94,16 +95,17 @@ const SketchComponent = () => {
   const drawlives = (p5: any) => {
 
     if(lives >= 2){
-      p5.font = "16px Arial";
-      p5.textSize(50);
+      p5.font = "Source Han Sans";
+      p5.textSize(55);
+      p5.fill('#ff69b4')
       p5.text('前期', width/2.2, height/2)
-      p5.fill(0, 0, 0)
     }
+
     else if(lives === 1){
-      p5.font = "16px Arial";
-      p5.textSize(50);
+      p5.font = "Ubuntu";
+      p5.textSize(55);
+      p5.fill('#dc143c')
       p5.text('後期', width/2.2, height/2)
-      p5.fill(0, 0, 0)
     }  
   }
 
