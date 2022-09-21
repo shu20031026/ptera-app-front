@@ -22,8 +22,8 @@ const SketchComponent = () => {
   const router = useRouter()
   const { width, height } = getWindowSize()
   const ballRadius = 10
-  const x = useRef(50)
-  const y = useRef(50)
+  const x = useRef(width - 100)
+  const y = useRef(height - 30)
   let dx = 2
   let dy = -2
   const paddleHeight = 10
@@ -38,11 +38,14 @@ const SketchComponent = () => {
   const brickPadding = 10
   const brickOffsetTop = 30
   const brickOffsetLeft = 30
+  let text: BricksArray[][] = []
   let bricks: BricksArray[][] = []
   for (let c = 0; c < brickColumnCount; c++) {
     bricks[c] = []
+    text[c] = []
     for (let r = 0; r < brickRowCount; r++) {
       bricks[c][r] = { x: 0, y: 0, status: 1 }
+      text[c][r] = { x: 0, y: 0, status: 1 }
     }
   }
 
@@ -71,11 +74,26 @@ const SketchComponent = () => {
       }
     }
   }
+  const drawText = (p5: any) => {
+    for (let c = 0; c < brickColumnCount; c++) {
+      for (let r = 0; r < brickRowCount; r++) {
+        if (text[c][r].status === 1) {
+          const brickX = c * (brickWidth + brickPadding) + brickOffsetLeft
+          const brickY = r * (brickHeight + brickPadding) + brickOffsetTop
+          text[c][r].x = brickX
+          text[c][r].y = brickY
+          p5.text('test', brickX, brickY, brickWidth, brickHeight)
+          p5.fill(0, 0, 0)
+        }
+      }
+    }
+  }
 
   const collisionDetection = () => {
     for (let c = 0; c < brickColumnCount; c++) {
       for (let r = 0; r < brickRowCount; r++) {
         let b = bricks[c][r]
+        let t = text[c][r]
         if (b.status == 1) {
           if (
             x.current > b.x &&
@@ -85,6 +103,7 @@ const SketchComponent = () => {
           ) {
             dy = -dy
             b.status = 0
+            t.status = 0
             score++
           }
         }
@@ -104,6 +123,10 @@ const SketchComponent = () => {
     drawPaddle(p5)
     collisionDetection()
     drawBricks(p5)
+    drawText(p5)
+    if (y.current < 10) {
+      dy = -dy
+    }
     if (x.current + dx > width - ballRadius || x.current + dx < ballRadius) {
       dx = -dx
       if (y.current + dy < ballRadius) {
@@ -120,7 +143,6 @@ const SketchComponent = () => {
         }
       }
     }
-
     x.current += dx
     y.current += dy
 

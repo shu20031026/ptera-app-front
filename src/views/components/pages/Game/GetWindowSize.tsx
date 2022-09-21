@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react'
 export const getWindowSize = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [windowSize, setWindowSize] = useState({
-    width: 0,
-    height: 0,
+    width: 200,
+    height: 500,
   })
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
