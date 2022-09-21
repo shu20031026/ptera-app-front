@@ -18,7 +18,7 @@ const SketchComponent = () => {
     p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef)
     p5.colorMode(p5.HSB, p5.width, p5.height, 100)
     //p5.noStroke()
-    p5.background('transparent');
+    time = p5.millis();
   }
 
   const preload = (p5: any) => {
@@ -48,6 +48,11 @@ const SketchComponent = () => {
   let bricks: BricksArray[][] = []
   let mugiwaraImg = ''
 
+  let time:number;
+  const oneSec = 1000;
+  let elapsedTime = 0;
+  let count = 0;
+  
   for (let c = 0; c < brickColumnCount; c++) {
     bricks[c] = []
     text[c] = []
@@ -98,25 +103,6 @@ const SketchComponent = () => {
     }
   }
 
-  const drawlives = (p5: any) => {
-    p5.textSize(30);
-    p5.fill('#d5ffcc')
-    p5.text(score.current,width/2.05,height/1.5);
-
-
-    if(lives >= 2){
-      p5.textSize(60);
-      p5.fill('#ffe6ed')
-      p5.text('前期', width/2.18, height/2)
-    }
-
-    else if(lives === 1){
-      p5.textSize(60);
-      p5.fill('#e5ccff')
-      p5.text('後期', width/2.18, height/2)
-    }  
-  }
-
   const collisionDetection = () => {
     for (let c = 0; c < brickColumnCount; c++) {
       for (let r = 0; r < brickRowCount; r++) {
@@ -152,7 +138,18 @@ const SketchComponent = () => {
     collisionDetection()
     drawBricks(p5)
     drawText(p5)
-    drawlives(p5)
+
+    p5.textSize(30);
+    p5.text(count + '秒経過',width/2.18, height/2);
+    const now = p5.millis();
+    elapsedTime = now - time;
+    if (elapsedTime >= oneSec) {
+      // 秒数を1つ大きくする
+      count++;
+      // 再びスタート
+      time = p5.millis();
+  }
+    
     if (y.current < 10) {
       dy = -dy
     }
