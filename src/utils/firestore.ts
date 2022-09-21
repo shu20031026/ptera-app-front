@@ -1,5 +1,4 @@
-import { addDoc, collection, getDocs, query } from 'firebase/firestore'
-import { orderBy } from 'firebase/firestore'
+import { addDoc, collection, getDocs, query, orderBy } from 'firebase/firestore'
 import type { DocumentData } from 'firebase/firestore'
 import { db } from '@/constant/firebase'
 import { ResultType } from '@/constant/type'
