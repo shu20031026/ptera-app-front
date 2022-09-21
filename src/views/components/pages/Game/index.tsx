@@ -11,8 +11,8 @@ export const Game: NextPage = () => {
   console.log(userData)
   return (
     <div css={game} id='canvas-parent'>
-      <ShanksComment />
       <SketchComponent />
     </div>
   )
 }
+
