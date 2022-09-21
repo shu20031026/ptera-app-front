@@ -20,6 +20,10 @@ const SketchComponent = () => {
     p5.noStroke()
   }
 
+  const preload = (p5: any) => {
+    mugiwaraImg = p5.loadImage('mugiwarabouhi.png')
+  }
+
   const router = useRouter()
   const { width, height } = getWindowSize()
   const ballRadius = 25
@@ -41,6 +45,8 @@ const SketchComponent = () => {
   const brickOffsetLeft = 30
   let text: BricksArray[][] = []
   let bricks: BricksArray[][] = []
+  let mugiwaraImg = ''
+
   for (let c = 0; c < brickColumnCount; c++) {
     bricks[c] = []
     text[c] = []
@@ -52,8 +58,7 @@ const SketchComponent = () => {
 
   const drawBall = (p5: any, ball_x: number, ball_y: number, b_ballRadius: number) => {
     p5.clear()
-    p5.fill(0, 800, 600)
-    p5.arc(ball_x, ball_y, ballRadius, ballRadius, 0, Math.PI * 2)
+    p5.image(mugiwaraImg, ball_x, ball_y, 30, 30)
   }
 
   const drawPaddle = (p5: any) => {
@@ -183,7 +188,7 @@ const SketchComponent = () => {
     p5.resizeCanvas(p5.windowWidth, p5.windowHeight)
   }
 
-  return <Sketch setup={setup} draw={draw} windowResized={windowResized} />
+  return <Sketch preload={preload} setup={setup} draw={draw} windowResized={windowResized} />
 }
 
 export default SketchComponent
