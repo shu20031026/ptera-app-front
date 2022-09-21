@@ -21,6 +21,7 @@ import {
   foursArea,
   othersArea,
   othersItem,
+  othersName,
 } from './style'
 import { fetchData } from '@/utils/firestore'
 
@@ -104,15 +105,15 @@ export const Ranking: NextPage = () => {
           </div>
         ))}
       </div>
-      {/* <div css={othersArea}>
+      <div css={othersArea}>
         {result.slice(5).map((doc, i) => (
           <div key={i} css={othersItem}>
-            <div>{i + 5}</div>
-            <div>{doc.name}</div>
-            <div>{doc.score}</div>
+            <div css={othersName}>{i + 6}位</div>
+            <div css={othersName}>{doc.name}</div>
+            <div css={othersName}>score: {doc.score}</div>
           </div>
         ))}
-      </div> */}
+      </div>
     </div>
   )
 }

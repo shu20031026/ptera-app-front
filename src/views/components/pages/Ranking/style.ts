@@ -159,14 +159,24 @@ export const foursArea = css`
 `
 
 export const othersArea = css`
-  width: 100%;
+  margin: 0 auto;
+  width: 60%;
   color: ${colors.text.primary};
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  padding-bottom: 30px;
 `
 
 export const othersItem = css`
-  width: 70%;
+  width: 100%;
   display: flex;
+  justify-content: space-around;
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 50px;
+  border-bottom: 2px solid ${colors.text.secondly};
+`
+
+export const othersName = css`
+  font-size: 30px;
+  color: ${colors.base.primary};
 `
