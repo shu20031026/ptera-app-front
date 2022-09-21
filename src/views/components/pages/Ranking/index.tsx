@@ -81,7 +81,7 @@ export const Ranking: NextPage = () => {
                 <p css={jobItem}>{jobStatus[i]}</p>
                 <p css={dropSubItem}>{doc.unit}</p>
                 <p css={nameItem}>{doc.name}</p>
-                <p css={dropItem}>score:{doc.droppedUnit}</p>
+                <p css={dropItem}>score:{doc.score}</p>
               </div>
             </div>
           </div>
