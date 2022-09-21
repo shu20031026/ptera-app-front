@@ -1,6 +1,5 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { useRecoilValue } from 'recoil'
 import {
   dropSubUnit,
   dropUnit,
@@ -22,12 +21,7 @@ import {
   userInf,
   userScore,
 } from './style'
-import { resultDataState, ResultType } from '@/context/atoms'
-import { putData } from '@/utils/firestore'
-import { time } from 'console'
-import { dropSubItem } from '../Ranking/style'
-import { userInfo } from 'os'
-import { UserInfo } from 'firebase-admin/lib/auth/user-record'
+import { ResultType } from '@/context/atoms'
 
 export const Result: NextPage = () => {
   // const resultData = useRecoilValue(resultDataState)
