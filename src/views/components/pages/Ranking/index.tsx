@@ -16,13 +16,19 @@ import {
   head,
   rank,
   headSub,
+  headerContainer,
+  kingArea,
+  foursArea,
+  othersArea,
+  othersItem,
+  othersName,
 } from './style'
 import { fetchData } from '@/utils/firestore'
 
 export const Ranking: NextPage = () => {
   const [result, setResult] = useState<DocumentData[]>([])
 
-  const jobStatus = ['海賊王', '四皇', '四皇', '四皇', '四皇']
+  const jobStatus = ['落単王', '四皇', '四皇', '四皇', '四皇']
 
   const rankingPic = [
     'https://cdn.amz.appget.com/c/wp-content/uploads/2016/05/12355.png',
@@ -59,34 +65,55 @@ export const Ranking: NextPage = () => {
 
   return (
     <div css={ranking}>
-      <h1 css={head}>赤点ランキング</h1>
-      <p css={headSub}>…最悪の世代へ</p>
-      <ul css={style}>
-        {result.map((doc, i) => (
-          <div key={i}>
-            <div>
-              <a css={rank} href='#'>
-                ☆{i + 1}位
-              </a>
-            </div>
+      <div css={headerContainer}>
+        <h1 css={head}>RED Score Ranking</h1>
+        <p css={headSub}>成績が最悪の世代達</p>
+      </div>
+      <div css={kingArea}>
+        <div css={rankingItem}>
+          <img css={rankStatus} src={rankingStatus[0]} />
+          <img css={rankPic} src={rankingPic[0]} />
+          <img
+            css={pictureSize}
+            src='http://blog-imgs-35.fc2.com/y/u/z/yuzudrops/20110911151248679.png'
+          />
+          <div css={wrapper}>
+            <p css={jobItem}>{jobStatus[0]}</p>
+            {/* <p css={dropSubItem}>{result[0]?.unit}</p> */}
+            <p css={nameItem}>{result[0]?.name}</p>
+            <p css={dropItem}>score:{result[0]?.score}</p>
+          </div>
+        </div>
+      </div>
+      <div></div>
 
-            <div css={rankingItem}>
-              <img css={rankStatus} src={rankingStatus[i]} />
-              <img css={rankPic} src={rankingPic[i]} />
-              <img
-                css={pictureSize}
-                src='http://blog-imgs-35.fc2.com/y/u/z/yuzudrops/20110911151248679.png'
-              />
-              <div css={wrapper}>
-                <p css={jobItem}>{jobStatus[i]}</p>
-                <p css={dropSubItem}>{doc.unit}</p>
-                <p css={nameItem}>{doc.name}</p>
-                <p css={dropItem}>score:{doc.score}</p>
-              </div>
+      <div css={foursArea}>
+        {result.slice(1, 5).map((doc, i) => (
+          <div css={rankingItem} key={i}>
+            <img css={rankStatus} src={rankingStatus[i + 1]} />
+            <img css={rankPic} src={rankingPic[i + 1]} />
+            <img
+              css={pictureSize}
+              src='http://blog-imgs-35.fc2.com/y/u/z/yuzudrops/20110911151248679.png'
+            />
+            <div css={wrapper}>
+              <p css={jobItem}>{jobStatus[i + 1]}</p>
+              {/* <p css={dropSubItem}>{doc.unit}</p> */}
+              <p css={nameItem}>{doc.name}</p>
+              <p css={dropItem}>score:{doc.score}</p>
             </div>
           </div>
         ))}
-      </ul>
+      </div>
+      <div css={othersArea}>
+        {result.slice(5).map((doc, i) => (
+          <div key={i} css={othersItem}>
+            <div css={othersName}>{i + 6}位</div>
+            <div css={othersName}>{doc.name}</div>
+            <div css={othersName}>score: {doc.score}</div>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
