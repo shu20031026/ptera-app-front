@@ -61,8 +61,7 @@ const SketchComponent: any = (props: UserDataType) => {
   let textBricks: BricksArray[][] = []
   const brickNum = useRef(0)
   let mugiwaraImg = ''
-  //let myFont
-  //タイマーの処理
+
   let time: number
   const oneSec = 1000
   let elapsedTime = 0
