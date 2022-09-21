@@ -19,7 +19,12 @@ const SketchComponent = () => {
   const setup = (p5: any, canvasParentRef: Element) => {
     p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef)
     p5.colorMode(p5.HSB, p5.width, p5.height, 100)
-    p5.noStroke()
+
+    time = p5.millis();
+  }
+
+  const preload = (p5: any) => {
+    //mugiwaraImg = p5.loadImage('mugiwarabouhi.png')
   }
 
   const setResultState = useSetRecoilState(resultDataState)
@@ -32,25 +37,33 @@ const SketchComponent = () => {
 
   const router = useRouter()
   const { width, height } = getWindowSize()
-  const ballRadius = 10
+  const ballRadius = 25
   const x = useRef(width - 100)
   const y = useRef(height - 30)
-  let dx = 2
-  let dy = -2
+  let dx = 5
+  let dy = -5
   const paddleHeight = 10
-  const paddleWidth = 75
+  const paddleWidth = 90
   const paddleX = useRef((width - paddleWidth) / 2)
-  let lives = 3
-  let score = 0
-  const brickRowCount = 3
+  let lives = 2
+  const score = useRef(0)
+  const brickRowCount = 4
   const brickColumnCount = 5
-  const brickWidth = 75
-  const brickHeight = 20
+  const brickWidth = width / 5.5
+  const brickHeight = 35
   const brickPadding = 10
   const brickOffsetTop = 30
   const brickOffsetLeft = 30
   let text: BricksArray[][] = []
   let bricks: BricksArray[][] = []
+  let mugiwaraImg = ''
+  let myFont;
+  //タイマーの処理
+  let time:number;
+  const oneSec = 1000;
+  let elapsedTime = 0;
+  let count = 0;
+  
   for (let c = 0; c < brickColumnCount; c++) {
     bricks[c] = []
     text[c] = []
@@ -62,13 +75,13 @@ const SketchComponent = () => {
 
   const drawBall = (p5: any, ball_x: number, ball_y: number, b_ballRadius: number) => {
     p5.clear()
-    p5.fill(0, 0, 0)
+    p5.fill('#e6fff7')
     p5.arc(ball_x, ball_y, ballRadius, ballRadius, 0, Math.PI * 2)
   }
 
   const drawPaddle = (p5: any) => {
     p5.rect(paddleX.current, p5.height - paddleHeight, paddleWidth, paddleHeight)
-    p5.fill('#0095DD')
+    p5.fill('#f0f8ff')
   }
 
   const drawBricks = (p5: any) => {
@@ -80,11 +93,12 @@ const SketchComponent = () => {
           bricks[c][r].x = brickX
           bricks[c][r].y = brickY
           p5.rect(brickX, brickY, brickWidth, brickHeight)
-          p5.fill('#0095DD')
+          p5.fill('#ffffff')
         }
       }
     }
   }
+
   const drawText = (p5: any) => {
     for (let c = 0; c < brickColumnCount; c++) {
       for (let r = 0; r < brickRowCount; r++) {
@@ -94,7 +108,8 @@ const SketchComponent = () => {
           text[c][r].x = brickX
           text[c][r].y = brickY
           p5.text('test', brickX, brickY, brickWidth, brickHeight)
-          p5.fill(0, 0, 0)
+          p5.textSize(35)
+          p5.fill('#ff2828')
         }
       }
     }
@@ -114,17 +129,35 @@ const SketchComponent = () => {
           ) {
             dy = -dy
             b.status = 0
-            t.status = 0
-            score++
+            t.status= 0
+            score.current++
           }
         }
       }
     }
   }
 
+  const drawlives = (p5: any) => {
+    if(lives >= 2){
+      p5.textSize(20);
+
+      p5.textSize(58);
+      p5.textFont('Helvetica');
+      p5.fill('#e3fcec')
+      p5.text('前期', width/2.18, height/2)
+    }
+
+    else if(lives === 1){
+      p5.textSize(58);
+      p5.textFont('Helvetica');
+      p5.fill('#e3fcec')
+      p5.text('後期', width/2.18, height/2)
+    }
+  }
+
   const gameOver = () => {
-    alert('GAME OVER')
-    console.log(score)
+    alert('留年!!!!!!!!')
+    console.log(score.current)
     router.replace('/')
   }
 
@@ -132,9 +165,23 @@ const SketchComponent = () => {
     p5.clear()
     drawBall(p5, x.current, y.current, ballRadius)
     drawPaddle(p5)
+    drawlives(p5)
     collisionDetection()
     drawBricks(p5)
     drawText(p5)
+
+    p5.textSize(35);
+    p5.fill('#d6d982')
+    p5.text(count + '秒経過',width/2.16, height/2.4);
+    const now = p5.millis();
+    elapsedTime = now - time;
+    if (elapsedTime >= oneSec) {
+      // 秒数を1つ大きくする
+      count++;
+      // 再びスタート
+      time = p5.millis();
+  }
+    
     if (y.current < 10) {
       dy = -dy
     }
@@ -144,10 +191,11 @@ const SketchComponent = () => {
         dy = -dy
       }
     } else if (y.current + dy > height - ballRadius) {
-      if (x.current > paddleX.current && x.current < paddleX.current + paddleWidth) {
+      if (x.current + 12 > paddleX.current && x.current - 20 < paddleX.current + paddleWidth) {
         dy = -dy
-      } else {
+      } else{
         lives--
+        dy = -dy
         if (lives === 0) {
           gameOver()
           p5.noLoop()
@@ -172,7 +220,7 @@ const SketchComponent = () => {
     p5.resizeCanvas(p5.windowWidth, p5.windowHeight)
   }
 
-  return <Sketch setup={setup} draw={draw} windowResized={windowResized} />
+  return <Sketch preload={preload} setup={setup} draw={draw} windowResized={windowResized} />
 }
 
 export default SketchComponent
