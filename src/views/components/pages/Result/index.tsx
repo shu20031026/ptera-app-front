@@ -5,6 +5,7 @@ import {
   dropSubUnit,
   dropUnit,
   dropUnitNum,
+  head,
   header,
   headerSpan,
   rankButton,
@@ -65,6 +66,7 @@ export const Result: NextPage = () => {
   return (
     <div>
       <div>
+        <div css={head}>RESULT画面</div>
         <div css={header}>
           <div css={headerSpan}>
             <span css={span1}>V</span>

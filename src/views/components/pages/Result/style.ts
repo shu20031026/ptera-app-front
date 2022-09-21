@@ -7,15 +7,23 @@ export const result = css`
   height: 100%;
 `
 
+export const head = css`
+  background-color: #000;
+  color: #fff;
+  font-size: 200%;
+  text-align: center;
+`
+
 export const header = css`
-  top: 60px;
+  top: 5px;
   text-align: center;
   font-size: 55px;
   position: relative;
   width: 600px; /* 直径 */
-  height: 300px; /* 直径 */
+  height: 200px; /* 直径 */
   margin: auto;
   transform: rotate(0deg);
+  z-index: 30;
 `
 
 export const headerSpan = css`
@@ -35,6 +43,18 @@ export const span1 = css`
   height: 300px; /* 半径 */
   transform-origin: center bottom; /* 回転の基準点 */
   transform: rotate(-60deg);
+  background: linear-gradient(
+    to right,
+    #e60000,
+    #f39800,
+    #fff100,
+    #009944,
+    #0068b7,
+    #1d2088,
+    #920783
+  );
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 `
 
 export const span2 = css`
@@ -45,6 +65,18 @@ export const span2 = css`
   height: 300px; /* 半径 */
   transform-origin: center bottom; /* 回転の基準点 */
   transform: rotate(-40deg);
+  background: linear-gradient(
+    to right,
+    #e60000,
+    #f39800,
+    #fff100,
+    #009944,
+    #0068b7,
+    #1d2088,
+    #920783
+  );
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 `
 
 export const span3 = css`
@@ -56,6 +88,18 @@ export const span3 = css`
   width: 60px; /* 文字サイズより小さくしない */
   height: 300px; /* 半径 */
   transform-origin: center bottom; /* 回転の基準点 */
+  background: linear-gradient(
+    to right,
+    #e60000,
+    #f39800,
+    #fff100,
+    #009944,
+    #0068b7,
+    #1d2088,
+    #920783
+  );
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 `
 
 export const span4 = css`
@@ -67,6 +111,18 @@ export const span4 = css`
   width: 60px; /* 文字サイズより小さくしない */
   height: 300px; /* 半径 */
   transform-origin: center bottom; /* 回転の基準点 */
+  background: linear-gradient(
+    to right,
+    #e60000,
+    #f39800,
+    #fff100,
+    #009944,
+    #0068b7,
+    #1d2088,
+    #920783
+  );
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 `
 
 export const span5 = css`
@@ -78,6 +134,18 @@ export const span5 = css`
   width: 60px; /* 文字サイズより小さくしない */
   height: 300px; /* 半径 */
   transform-origin: center bottom; /* 回転の基準点 */
+  background: linear-gradient(
+    to right,
+    #e60000,
+    #f39800,
+    #fff100,
+    #009944,
+    #0068b7,
+    #1d2088,
+    #920783
+  );
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 `
 
 export const span6 = css`
@@ -89,6 +157,18 @@ export const span6 = css`
   width: 60px; /* 文字サイズより小さくしない */
   height: 300px; /* 半径 */
   transform-origin: center bottom; /* 回転の基準点 */
+  background: linear-gradient(
+    to right,
+    #e60000,
+    #f39800,
+    #fff100,
+    #009944,
+    #0068b7,
+    #1d2088,
+    #920783
+  );
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 `
 
 export const span7 = css`
@@ -100,6 +180,18 @@ export const span7 = css`
   width: 60px; /* 文字サイズより小さくしない */
   height: 300px; /* 半径 */
   transform-origin: center bottom; /* 回転の基準点 */
+  background: linear-gradient(
+    to right,
+    #e60000,
+    #f39800,
+    #fff100,
+    #009944,
+    #0068b7,
+    #1d2088,
+    #920783
+  );
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 `
 
 export const user = css`
@@ -152,6 +244,7 @@ export const userScore = css`
   color: #7fffd4;
   margin-top: 32px;
   margin-bottom: 32px;
+  text-decoration: underline;
 `
 
 export const rankButton = css`
