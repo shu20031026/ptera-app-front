@@ -19,7 +19,6 @@ const SketchComponent: any = (props: UserDataType) => {
   const setup = (p5: any, canvasParentRef: Element) => {
     p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef)
     p5.colorMode(p5.HSB, p5.width, p5.height, 100)
-    console.log(units)
     time = p5.millis()
   }
 
@@ -40,6 +39,7 @@ const SketchComponent: any = (props: UserDataType) => {
   //const units = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11']
   const units = Object.values(props.unitList)
   let dropUnit: string[] = []
+  const startBricks = units.length
   const { width, height } = getWindowSize()
   const ballRadius = 25
   const x = useRef(width - 100)
@@ -49,7 +49,7 @@ const SketchComponent: any = (props: UserDataType) => {
   const paddleHeight = 10
   const paddleWidth = 90
   const paddleX = useRef((width - paddleWidth) / 2)
-  let lives = 2
+  let lives = 1000
   const score = useRef(0)
   const brickRowCount = 4
   const brickColumnCount = 5
@@ -126,9 +126,14 @@ const SketchComponent: any = (props: UserDataType) => {
             t.status = 0
             let deleteArr = units[brickNum.current]
             let index = units.indexOf(deleteArr)
-            dropUnit.push(deleteArr[0])
+            dropUnit.push(deleteArr)
             units.splice(index, 1)
             score.current++
+            console.log(dropUnit.length)
+            if (dropUnit.length >= startBricks) {
+              console.log('test')
+              gameOver()
+            }
           }
         }
         brickNum.current++
@@ -158,6 +163,9 @@ const SketchComponent: any = (props: UserDataType) => {
       breakUnit: dropUnit,
       time: count.current,
     })
+    console.log(props.userName)
+    console.log(dropUnit)
+    console.log(count.current)
   }
 
   useEffect(() => {
