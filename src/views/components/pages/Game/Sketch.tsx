@@ -1,8 +1,9 @@
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { useRef } from 'react'
+import { useSetRecoilState } from 'recoil'
 import { getWindowSize } from './GetWindowSize'
-import { userDataState } from '@/context/atoms'
+import { userDataState, resultDataState } from '@/context/atoms'
 
 type Props = {
   unitList: string[]
@@ -24,6 +25,15 @@ const SketchComponent: any = (props: Props) => {
     p5.colorMode(p5.HSB, p5.width, p5.height, 100)
     p5.noStroke()
   }
+
+  const setResultState = useSetRecoilState(resultDataState)
+  // 次のような関数でデータを渡す
+  // setResultState({
+  //   userName: 'ユーザー名',
+  //   breakUnit: [],//落とした単位の一覧
+  //   time: 0,// かかった時間
+  // })
+
   const router = useRouter()
   //const units = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11']
   const units = Object.values(props)
