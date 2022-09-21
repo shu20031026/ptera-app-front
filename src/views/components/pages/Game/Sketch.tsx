@@ -138,8 +138,6 @@ const SketchComponent = () => {
 
   const drawlives = (p5: any) => {
     if(lives >= 2){
-      p5.textSize(20);
-
       p5.textSize(58);
       p5.textFont('Helvetica');
       p5.fill('#e3fcec')
