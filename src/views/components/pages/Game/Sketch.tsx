@@ -19,7 +19,7 @@ const SketchComponent = () => {
   const setup = (p5: any, canvasParentRef: Element) => {
     p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef)
     p5.colorMode(p5.HSB, p5.width, p5.height, 100)
-
+    
     time = p5.millis();
   }
 
@@ -140,14 +140,19 @@ const SketchComponent = () => {
     if(lives >= 2){
       p5.textSize(58);
       p5.textFont('Helvetica');
-      p5.fill('#e3fcec')
+      p5.fill('#f0ffff')
       p5.text('前期', width/2.18, height/2)
     }
 
     else if(lives === 1){
+      p5.textSize(35);
+      p5.textFont('Helvetica');
+      p5.fill('#4affed')
+      p5.text('⚠️留年注意❗⚠️', width/2.45, height/1.7)
+      
       p5.textSize(58);
       p5.textFont('Helvetica');
-      p5.fill('#e3fcec')
+      p5.fill('##f0ffff')
       p5.text('後期', width/2.18, height/2)
     }
   }
@@ -173,10 +178,22 @@ const SketchComponent = () => {
     collisionDetection()
     drawBricks(p5)
     drawText(p5)
+    //drawSakura(width / 2, height / 2, 200) //花
+    
 
-    p5.textSize(35);
-    p5.fill('#d6d982')
-    p5.text(count.current + '秒経過',width/2.16, height/2.4);
+    //p5.textSize(35);
+    //p5.fill('#d6d982')
+    //p5.text(count.current + '秒経過',width/2.16, height/2.4);
+
+    //strokeWeight(1);//花
+    //stroke(200);//花
+    //line(width / 2, 0, width / 2, height);//花
+    //line(0, height / 2, width, height / 2);//花
+
+    //noFill();//花
+    //strokeWeight(2);//花
+    //stroke(200, 0, 0);//花
+    //p5.drawSakura(p5, width / 2, height / 2, 130);//花
     
     if (y.current < 10) {
       dy = -dy
@@ -209,6 +226,38 @@ const SketchComponent = () => {
       if (paddleX.current <= width - ballRadius - paddleWidth) {
         paddleX.current += 7
       }
+    }
+  }
+
+  const drawSakura = (p5:any, ox:number, oy:number, or:number) =>{
+    let petalNum = 5;
+
+    p5.push();
+    p5.translate(ox,oy)
+    p5.rotate(90);
+
+    p5.beginShape();
+    for(let theta = 0; theta < 360; theta++) {
+      let A = petalNum / 180 * theta;
+      let md = floor(A) % 2;
+      let r = pow(-1, md) * (A - floor(A)) + md;
+      let R = r + 2 * calcH(p5, r);
+
+      let x = or * R * cos(theta);
+      let y = or * R * sin(theta);
+
+      vertex(x, y);
+    }
+    endShape(CLOSE);
+
+    p5.pop();
+  }
+
+  const calcH = (p5:any, x:number) =>{
+    if (x < 0.8) {
+      return 0;
+    } else {
+      return 0.8 - x;
     }
   }
 
