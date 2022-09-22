@@ -99,7 +99,7 @@ export const Result: NextPage = () => {
             <div css={rankPost}>ランキングに登録する</div>
           </button>
           <button css={rankButton} onClick={() => addRanking()}>
-            <div css={rankPost} onClick={() => router.push('/')}>
+            <div css={rankPost} onClick={() => router.replace('/')}>
               リトライ
             </div>
           </button>

@@ -1,5 +1,6 @@
 import type { DocumentData } from '@firebase/firestore'
 import type { NextPage } from 'next'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import {
   rankingItem,
@@ -22,6 +23,7 @@ import {
   othersArea,
   othersItem,
   othersName,
+  othersItemTop,
 } from './style'
 import { fetchData } from '@/utils/firestore'
 
@@ -29,6 +31,7 @@ export const Ranking: NextPage = () => {
   const [result, setResult] = useState<DocumentData[]>([])
 
   const jobStatus = ['落単王', '四皇', '四皇', '四皇', '四皇']
+  const router = useRouter()
 
   const rankingPic = [
     'https://cdn.amz.appget.com/c/wp-content/uploads/2016/05/12355.png',
@@ -65,7 +68,7 @@ export const Ranking: NextPage = () => {
 
   return (
     <div css={ranking}>
-      <div css={headerContainer}>
+      <div css={headerContainer} onClick={() => router.push('/')}>
         <h1 css={head}>RED Score Ranking</h1>
         <p css={headSub}>成績が最悪の世代達</p>
       </div>
@@ -106,6 +109,11 @@ export const Ranking: NextPage = () => {
         ))}
       </div>
       <div css={othersArea}>
+        <div css={othersItemTop}>
+          <div css={othersName}>順位</div>
+          <div css={othersName}>ユーザー名</div>
+          <div css={othersName}>スコア</div>
+        </div>
         {result.slice(5).map((doc, i) => (
           <div key={i} css={othersItem}>
             <div css={othersName}>{i + 6}位</div>
