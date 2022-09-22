@@ -18,7 +18,6 @@ import {
   unitListContainer,
 } from './style'
 import { userDataState } from '@/context/atoms'
-import rankingIcon from 'public/rankingIcon.png'
 
 // homeページ
 export const Home: NextPage = () => {
