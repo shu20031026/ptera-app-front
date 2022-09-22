@@ -141,19 +141,19 @@ const SketchComponent = () => {
       p5.textSize(58);
       p5.textFont('Helvetica');
       p5.fill('#f0ffff')
-      p5.text('前期', width/2.18, height/2)
+      p5.text('前期', width/2.18, height/2.3)
     }
 
     else if(lives === 1){
       p5.textSize(35);
       p5.textFont('Helvetica');
       p5.fill('#4affed')
-      p5.text('⚠️留年注意❗⚠️', width/2.45, height/1.7)
+      p5.text('⚠️留年注意❗⚠️', width/2.45, height/2)
       
       p5.textSize(58);
       p5.textFont('Helvetica');
-      p5.fill('##f0ffff')
-      p5.text('後期', width/2.18, height/2)
+      p5.fill('#f0ffff')
+      p5.text('後期', width/2.18, height/2.3)
     }
   }
 
