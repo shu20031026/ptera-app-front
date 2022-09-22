@@ -3,6 +3,7 @@ import { colors } from '@/styles/template'
 
 export const ranking = css`
   color: ${colors.base.primary};
+  height: 100%;
 `
 
 export const rankingItem = css`
@@ -15,12 +16,15 @@ export const rankingItem = css`
   margin-right: 10px;
   position: relative;
 `
+
 export const nameItem = css`
   text-align: center;
-  font-size: 200%;
+  font-size: 50px;
   margin: 0;
-  margin-bottom: -50px;
+  margin-bottom: -80px;
+  font-weight: 600;
   color: #da8e00;
+  -webkit-text-stroke: 1px white;
   background: -webkit-linear-gradient(
     -45deg,
     #f7de05,
@@ -62,11 +66,13 @@ export const jobItem = css`
   font-size: 500%;
   margin: 0;
   margin-top: 70px;
-  color: #ff8c00;
-  background: -webkit-linear-gradient(0deg, #40e0d0, #ff8c00, #ff0080);
+  color: white;
+  font-weight: 700;
+  -webkit-text-stroke: 3px red;
+  /* background: -webkit-linear-gradient(0deg, #40e0d0, #ff8c00, #ff0080);
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: brightness(150%);
+  filter: brightness(150%); */
 `
 
 export const pictureSize = css`
@@ -111,21 +117,24 @@ export const style = css`
   flex-wrap: wrap;
 `
 
+export const headerContainer = css`
+  width: 100%;
+  background-color: black;
+`
+
 export const head = css`
+  width: 100%;
   text-align: center;
   font-size: 500%;
-  margin-bottom: 0;
-  margin-top: 0;
-  filter: brightness(125%);
+  margin: 0;
 `
 
 export const headSub = css`
   text-align: center;
   font-size: 200%;
   margin-top: 0;
-  margin-bottom: 0;
+  margin-bottom: 20px;
   color: white;
-  background: -webkit-linear-gradient(top, #191970 0%, #a260bf 50%, #4b0082 51%, #000000 100%);
 `
 
 export const rank = css`
@@ -133,4 +142,41 @@ export const rank = css`
   font-size: 250%;
   color: #00ffff;
   margin-bottom: 10px;
+`
+
+export const kingArea = css`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+`
+
+export const foursArea = css`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 30px;
+`
+
+export const othersArea = css`
+  margin: 0 auto;
+  width: 60%;
+  color: ${colors.text.primary};
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 30px;
+`
+
+export const othersItem = css`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 50px;
+  border-bottom: 2px solid ${colors.text.secondly};
+`
+
+export const othersName = css`
+  font-size: 30px;
+  color: ${colors.base.primary};
 `

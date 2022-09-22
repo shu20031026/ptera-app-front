@@ -1,8 +1,6 @@
-import { addDoc, collection, getDocs, query } from 'firebase/firestore'
-import { orderBy } from 'firebase/firestore'
+import { addDoc, collection, getDocs, query, orderBy } from 'firebase/firestore'
 import type { DocumentData } from 'firebase/firestore'
 import { db } from '@/constant/firebase'
-import { ResultType } from '@/constant/type'
 
 const COLLECTION_NAME = 'koji-ranjer'
 
@@ -16,8 +14,13 @@ export const fetchData = async () => {
   })
   return result
 }
+export type FireStoreType = {
+  name: string
+  unit: string[]
+  score: number
+}
 
-export const putData = async (result: ResultType) => {
+export const putData = async (result: FireStoreType) => {
   const docRef = await addDoc(collection(db, COLLECTION_NAME), result)
   console.log(docRef)
 }

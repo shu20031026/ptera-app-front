@@ -4,7 +4,7 @@ export const getWindowSize = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [windowSize, setWindowSize] = useState({
     width: 200,
-    height: 500,
+    height: 450,
   })
 
   // eslint-disable-next-line react-hooks/rules-of-hooks

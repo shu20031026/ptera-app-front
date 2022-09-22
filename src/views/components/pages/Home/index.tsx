@@ -41,12 +41,12 @@ export const Home: NextPage = () => {
       userName: player,
       unitList,
     })
-    router.replace('/game')
+    router.push('/game')
   }
 
   return (
     <div css={homeContainer}>
-      <h1 css={gameTitle}>ゲームタイトル</h1>
+      <h1 css={gameTitle}> {'"落単王"に!!! おれはなるっ!!!'}</h1>
       <div css={homeWrapper}>
         <div>
           <input

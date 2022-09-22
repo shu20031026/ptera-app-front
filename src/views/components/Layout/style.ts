@@ -6,6 +6,7 @@ export const layoutContainer = css`
   padding: 0;
   width: 100vw;
   height: 100%;
+  min-height: 100vh;
   background: linear-gradient(
     135deg,
     ${colors.text.secondly},
