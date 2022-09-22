@@ -57,7 +57,7 @@ export const Result: NextPage = () => {
   async function addRanking() {
     // firebaseにでーたをとばすしょり
     await putData({ name: resultData.userName, unit: resultData.breakUnit, score })
-    router.push('/ranking')
+    router.replace('/ranking')
   }
   //ダミーデータ
 
