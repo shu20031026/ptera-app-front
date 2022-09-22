@@ -25,7 +25,6 @@ const SketchComponent: any = (props: UserDataType) => {
     y.current = getHeight.current - 30
     paddleX.current = (getWidth.current - 90) / 2
     brickWidth.current = getWidth.current / 5 - 20
-    console.log(getWidth, p5.windowWidth)
     time = p5.millis()
   }
 
@@ -53,12 +52,12 @@ const SketchComponent: any = (props: UserDataType) => {
   const ballRadius = 35
   const x = useRef(500)
   const y = useRef(500)
-  let dx = 15
-  let dy = -15
+  let dx = 5
+  let dy = -5
   const paddleHeight = 10
   const paddleWidth = 90
   const paddleX = useRef(500)
-  let lives = 10000
+  let lives = 2
   const score = useRef(0)
   const brickRowCount = 4
   const brickColumnCount = 5
@@ -177,7 +176,53 @@ const SketchComponent: any = (props: UserDataType) => {
   }, [])
 
   // デバッグ用の関数なので残しといてください
-  const keyIsPressed = (p5: any) => {
+  // const keyIsPressed = (p5: any) => {
+  //   p5.clear()
+  //   lives = 10000
+  //   drawBall(p5, x.current, y.current, ballRadius)
+  //   drawPaddle(p5)
+  //   drawUnit(p5)
+  //   drawlives(p5)
+  //   collisionDetection()
+  //   p5.textSize(35)
+  //   p5.fill('#d6d982')
+  //   p5.text(count.current + '秒経過', getWidth.current / 2.16, getHeight.current / 2.4)
+  //   const now = p5.millis()
+  //   elapsedTime = now - time
+  //   if (y.current < 10) {
+  //     dy = -dy
+  //   }
+  //   if (x.current + dx > getWidth.current - ballRadius || x.current + dx < ballRadius) {
+  //     dx = -dx
+  //     if (y.current + dy < ballRadius) {
+  //       dy = -dy
+  //     }
+  //   } else if (y.current + dy > getHeight.current - ballRadius) {
+  //     if (x.current + 12 > paddleX.current && x.current - 20 < paddleX.current + paddleWidth) {
+  //       dy = -dy
+  //     } else {
+  //       lives--
+  //       dy = -dy
+  //       if (lives === 0) {
+  //         p5.noLoop()
+  //         gameOver()
+  //       }
+  //     }
+  //   }
+  //   x.current += dx
+  //   y.current += dy
+  //   // if (p5.keyIsPressed(p5.LEFT_ARROW)) {
+  //   //   if (paddleX.current >= ballRadius) {
+  //   //     paddleX.current -= 20
+  //   //   }
+  //   // } else if (p5.keyIsPressed(p5.RIGHT_ARROW)) {
+  //   //   if (paddleX.current <= width - ballRadius - paddleWidth) {
+  //   //     paddleX.current += 20
+  //   //   }
+  //   // }
+  // }
+
+  const draw = (p5: any) => {
     p5.clear()
     drawBall(p5, x.current, y.current, ballRadius)
     drawPaddle(p5)
@@ -211,62 +256,17 @@ const SketchComponent: any = (props: UserDataType) => {
     }
     x.current += dx
     y.current += dy
-    // if (p5.keyIsPressed(p5.LEFT_ARROW)) {
-    //   if (paddleX.current >= ballRadius) {
-    //     paddleX.current -= 20
-    //   }
-    // } else if (p5.keyIsPressed(p5.RIGHT_ARROW)) {
-    //   if (paddleX.current <= width - ballRadius - paddleWidth) {
-    //     paddleX.current += 20
-    //   }
-    // }
+
+    if (p5.keyIsDown(p5.LEFT_ARROW)) {
+      if (paddleX.current >= ballRadius) {
+        paddleX.current -= 7
+      }
+    } else if (p5.keyIsDown(p5.RIGHT_ARROW)) {
+      if (paddleX.current <= getWidth.current - ballRadius - paddleWidth) {
+        paddleX.current += 7
+      }
+    }
   }
-
-  // const draw = (p5: any) => {
-  //   p5.clear()
-  //   drawBall(p5, x.current, y.current, ballRadius)
-  //   drawPaddle(p5)
-  //   drawUnit(p5)
-  //   drawlives(p5)
-  //   collisionDetection()
-  //   p5.textSize(35)
-  //   p5.fill('#d6d982')
-  //   p5.text(count.current + '秒経過', width / 2.16, height / 2.4)
-  //   const now = p5.millis()
-  //   elapsedTime = now - time
-  //   if (y.current < 10) {
-  //     dy = -dy
-  //   }
-  //   if (x.current + dx > width - ballRadius || x.current + dx < ballRadius) {
-  //     dx = -dx
-  //     if (y.current + dy < ballRadius) {
-  //       dy = -dy
-  //     }
-  //   } else if (y.current + dy > height - ballRadius) {
-  //     if (x.current + 12 > paddleX.current && x.current - 20 < paddleX.current + paddleWidth) {
-  //       dy = -dy
-  //     } else {
-  //       lives--
-  //       dy = -dy
-  //       if (lives === 0) {
-  //         p5.noLoop()
-  //         gameOver()
-  //       }
-  //     }
-  //   }
-  //   x.current += dx
-  //   y.current += dy
-
-  //   if (p5.keyIsDown(p5.LEFT_ARROW)) {
-  //     if (paddleX.current >= ballRadius) {
-  //       paddleX.current -= 7
-  //     }
-  //   } else if (p5.keyIsDown(p5.RIGHT_ARROW)) {
-  //     if (paddleX.current <= width - ballRadius - paddleWidth) {
-  //       paddleX.current += 7
-  //     }
-  //   }
-  // }
 
   const windowResized = (p5: any) => {
     p5.resizeCanvas(p5.windowWidth, p5.windowHeight)
@@ -278,14 +278,7 @@ const SketchComponent: any = (props: UserDataType) => {
     brickWidth.current = getWidth.current / 5 - 20
   }
 
-  return (
-    <Sketch
-      preload={preload}
-      setup={setup}
-      keyPressed={keyIsPressed}
-      windowResized={windowResized}
-    />
-  )
+  return <Sketch preload={preload} setup={setup} draw={draw} windowResized={windowResized} />
 }
 
 export default SketchComponent
