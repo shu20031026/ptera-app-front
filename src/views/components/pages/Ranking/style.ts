@@ -167,13 +167,28 @@ export const othersArea = css`
   padding-bottom: 30px;
 `
 
+export const othersItemTop = css`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 50px;
+  padding-left: 70px;
+  padding-right: 70px;
+  font-weight: bold;
+  border: 5px double ${colors.text.secondly};
+  margin-bottom: 5px;
+`
+
 export const othersItem = css`
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   background-color: rgba(255, 255, 255, 0.5);
   height: 50px;
   border-bottom: 2px solid ${colors.text.secondly};
+  padding-left: 70px;
+  padding-right: 70px;
 `
 
 export const othersName = css`

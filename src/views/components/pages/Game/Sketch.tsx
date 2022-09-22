@@ -145,18 +145,23 @@ const SketchComponent: any = (props: UserDataType) => {
   }
 
   const drawlives = (p5: any) => {
-    if (lives >= 2) {
-      p5.textSize(20)
+    if(lives >= 2){
+      p5.textSize(58);
+      p5.textFont('Helvetica');
+      p5.fill('#f0ffff')
+      p5.text('前期', getWidth.current/2.18, getHeight.current/2)
+    }
 
-      p5.textSize(58)
-      p5.textFont('Helvetica')
-      p5.fill('#e3fcec')
-      p5.text('前期', getWidth.current / 2.18, getHeight.current / 2)
-    } else if (lives === 1) {
-      p5.textSize(58)
-      p5.textFont('Helvetica')
-      p5.fill('#e3fcec')
-      p5.text('後期', getWidth.current / 2.18, getHeight.current / 2)
+    else if(lives === 1){
+      p5.textSize(35);
+      p5.textFont('Helvetica');
+      p5.fill('#4affed')
+      p5.text('⚠️留年注意❗⚠️', getWidth.current/2.45, getHeight.current/1.8)
+      
+      p5.textSize(58);
+      p5.textFont('Helvetica');
+      p5.fill('#f0ffff')
+      p5.text('後期', getWidth.current/2.18, getHeight.current/2)
     }
   }
 
@@ -231,7 +236,7 @@ const SketchComponent: any = (props: UserDataType) => {
     collisionDetection()
     p5.textSize(35)
     p5.fill('#d6d982')
-    p5.text(count.current + '秒経過', getWidth.current / 2.16, getHeight.current / 2.4)
+    p5.text(count.current + '秒経過', getWidth.current / 2.25, getHeight.current / 2.5)
     const now = p5.millis()
     elapsedTime = now - time
     if (y.current < 10) {
@@ -265,6 +270,38 @@ const SketchComponent: any = (props: UserDataType) => {
       if (paddleX.current <= getWidth.current - ballRadius - paddleWidth) {
         paddleX.current += 7
       }
+    }
+  }
+
+  const drawSakura = (p5:any, ox:number, oy:number, or:number) =>{
+    let petalNum = 5;
+
+    p5.push();
+    p5.translate(ox,oy)
+    p5.rotate(90);
+
+    p5.beginShape();
+    for(let theta = 0; theta < 360; theta++) {
+      let A = petalNum / 180 * theta;
+      let md = floor(A) % 2;
+      let r = pow(-1, md) * (A - floor(A)) + md;
+      let R = r + 2 * calcH(p5, r);
+
+      let x = or * R * cos(theta);
+      let y = or * R * sin(theta);
+
+      vertex(x, y);
+    }
+    endShape(CLOSE);
+
+    p5.pop();
+  }
+
+  const calcH = (p5:any, x:number) =>{
+    if (x < 0.8) {
+      return 0;
+    } else {
+      return 0.8 - x;
     }
   }
 
