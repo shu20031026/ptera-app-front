@@ -11,11 +11,14 @@ import {
   inputItemNumber,
   inputItemWrapper,
   nameInput,
+  rankingButton,
+  rankingButtonWrapper,
   refFlag,
   startButton,
   unitListContainer,
 } from './style'
 import { userDataState } from '@/context/atoms'
+import rankingIcon from 'public/rankingIcon.png'
 
 // homeページ
 export const Home: NextPage = () => {
@@ -46,6 +49,14 @@ export const Home: NextPage = () => {
 
   return (
     <div css={homeContainer}>
+      <div css={rankingButtonWrapper}>
+        <img
+          css={rankingButton}
+          src='https://icooon-mono.com/i/icon_10056/icon_100560.svg'
+          width={100}
+          onClick={() => router.push('/ranking')}
+        />
+      </div>
       <h1 css={gameTitle}> {'"落単王"に!!! おれはなるっ!!!'}</h1>
       <div css={homeWrapper}>
         <div>

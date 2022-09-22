@@ -152,3 +152,21 @@ export const refFlag = css`
   visibility: hidden;
   height: 0;
 `
+
+export const rankingButton = css`
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    transform: translateY(-5px);
+  }
+`
+export const rankingButtonWrapper = css`
+  position: absolute;
+  z-index: 9999;
+  margin-top: -650px;
+  justify-content: flex-end;
+  display: flex;
+  width: 100%;
+  color: white;
+  padding-right: 40px;
+`
